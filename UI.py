@@ -1,7 +1,7 @@
-#!/usr/bin/python
-from Tkinter import *
-import tkFont
-import Tkinter as tk
+#!/usr/bin/python3
+from tkinter import *
+#import tkFont
+import tkinter as tk
 
 class MyFirstGUI:
     def __init__(self, master):

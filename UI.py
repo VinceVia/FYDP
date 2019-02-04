@@ -61,7 +61,7 @@ class MyFirstGUI:
         print(v.get())
        
 
-
+print("write some stupid message")
 root = Tk()
 v = tk.IntVar()
 my_gui = MyFirstGUI(root)

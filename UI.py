@@ -1,4 +1,4 @@
-#!/Users/admin/anaconda3/bin/python3
+#!/usr/bin/python3
 import mainApp
 import sqlite3
 import tkinter as tk
@@ -8,7 +8,7 @@ import settings
 settings.init()
 settings.language = 2 #French as default language
 
-with sqlite3.connect("/Users/admin/FYDP/FYDP/db/fydp.db") as db:
+with sqlite3.connect("./db/fydp.db") as db:
     cur = db.cursor()
 
 def get_posts():

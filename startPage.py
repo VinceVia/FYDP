@@ -9,7 +9,6 @@ class StartPage(tk.Frame):
         tk.Frame.__init__(self, parent)
 
         self.controller = controller
-        graphs = graphPage.GraphPage(parent=parent, controller=controller)
 
         self.label = Label(self, text=settings.languageList[0][settings.language])
         self.label.config(font=("Times", 70, 'bold'))

@@ -18,9 +18,8 @@ class MainApp(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        graph_page = graphPage.GraphPage(parent=container, controller=self)
         self.frames["StartPage"] = startPage.StartPage(parent=container, controller=self)
-        self.frames["GraphPage"] = graph_page
+        self.frames["GraphPage"] = graphPage.GraphPage(parent=container, controller=self)
 
         self.frames["StartPage"].grid(row=0, column=0, sticky="nsew")
         self.frames["GraphPage"].grid(row=0, column=0, sticky="nsew")

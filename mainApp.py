@@ -13,9 +13,9 @@ class MainApp(tk.Tk):
         # on top of each other, then the one we want visible
         # will be raised above the others
         container = tk.Frame(self)
-        container.pack(side="top", fill="both", expand=True)
+        container.pack(side="top") #, expand=True) #, fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
-        container.grid_columnconfigure(0, weight=1)
+        container.grid_columnconfigure(1, weight=1)
 
         self.frames = {}
         self.frames["StartPage"] = startPage.StartPage(parent=container, controller=self)

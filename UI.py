@@ -4,17 +4,12 @@ import sqlite3
 import tkinter as tk
 from tkinter import *
 import settings
-
-settings.init()
-settings.language = 2 #French as default language
-
-with sqlite3.connect("./db/fydp.db") as db:
-    cur = db.cursor()
+import dao
 
 def get_posts():
-    with db:
-        cur.execute("SELECT * FROM language")
-        settings.languageList = cur.fetchall()
+    database = dao.Database('fydp')
+    database.execute("SELECT * FROM language")
+    settings.languageList = database.fetchall()
 
 def center(win):
     win.update_idletasks()
@@ -25,6 +20,8 @@ def center(win):
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
 
 if __name__ == "__main__":
+    settings.init()
+    settings.language = 2 #French as default language
     get_posts()
     app = mainApp.MainApp()
     center(app)

@@ -21,10 +21,10 @@ class GraphPage(tk.Frame):
         self.controller = controller
 
         self.mainLabel = Label(self, text=settings.languageList[7][settings.language])
-        self.mainLabel.config(font=("Times", 50, 'bold'))
+        self.mainLabel.config(font=("Times", 22, 'bold'))
         self.mainLabel.grid(row=0, columnspan=2, padx=20)
 
-        figure2 = plt.Figure(figsize=(5,4), dpi=100)
+        figure2 = plt.Figure(figsize=(4,2), dpi=100)
         ax2 = figure2.add_subplot(111)
         line2 = FigureCanvasTkAgg(figure2, self)
         line2.get_tk_widget().grid(row=2, columnspan=2, pady=20)
@@ -32,16 +32,16 @@ class GraphPage(tk.Frame):
         ax2.set_title('Speed Vs. Time')
 
         self.progress_label = Label(self, text=settings.languageList[1][settings.language])
-        self.progress_label.config(font=("Times", 30))
-        self.progress_label.grid(sticky=W, row=3, column=0, padx=20)
+        self.progress_label.config(font=("Times", 18))
+        self.progress_label.grid(sticky=W, row=3, column=0, padx=13)
 
         self.csvButton = Button(self, borderwidth=5, text=settings.languageList[9][settings.language], command=self.csvExport, bg="green")
-        self.csvButton.config(font=("Times", 30))
-        self.csvButton.grid(sticky=E, row=4, column=1, padx=20, pady=20)
+        self.csvButton.config(font=("Times", 18))
+        self.csvButton.grid(sticky=E, row=4, column=1,pady=5)
 
         self.returnButton = Button(self, text=settings.languageList[8][settings.language], fg="blue", relief="flat", command=lambda: controller.show_frame("StartPage"))
-        self.returnButton.config(font=("Times", 30))
-        self.returnButton.grid(sticky=W, row=4, column=0, padx=20)
+        self.returnButton.config(font=("Times", 18))
+        self.returnButton.grid(sticky=W, row=4, column=0,pady=5)
 
     def csvExport(self):
         print("Exporting!")

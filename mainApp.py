@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import font as tkfont
 import startPage
 import graphPage
+import previousGraphPage
 import settings
 
 class MainApp(tk.Tk):
@@ -13,16 +14,18 @@ class MainApp(tk.Tk):
         # on top of each other, then the one we want visible
         # will be raised above the others
         container = tk.Frame(self)
-        container.pack(side="top") #, expand=True) #, fill="both", expand=True)
+        container.pack(side="top", expand=True) #, fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(1, weight=1)
 
         self.frames = {}
         self.frames["StartPage"] = startPage.StartPage(parent=container, controller=self)
         self.frames["GraphPage"] = graphPage.GraphPage(parent=container, controller=self)
+        self.frames["PreviousGraphPage"] = previousGraphPage.PreviousGraphPage(parent=container, controller=self)
 
         self.frames["StartPage"].grid(row=0, column=0, sticky="nsew")
         self.frames["GraphPage"].grid(row=0, column=0, sticky="nsew")
+        self.frames["PreviousGraphPage"].grid(row=0, column=0, sticky="nsew")
 
         self.show_frame("StartPage")
 
@@ -34,4 +37,9 @@ class MainApp(tk.Tk):
                 graphPage.GraphPage.setEnglish(self.frames["GraphPage"])
             else:
                 graphPage.GraphPage.setFrench(self.frames["GraphPage"])
+        if(page_name == "PreviousGraphPage"):
+            if(settings.language == 1):
+                previousGraphPage.PreviousGraphPage.setEnglish(self.frames["PreviousGraphPage"])
+            else:
+                previousGraphPage.PreviousGraphPage.setFrench(self.frames["PreviousGraphPage"])
         frame.tkraise()

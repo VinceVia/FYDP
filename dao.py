@@ -2,7 +2,7 @@ import sqlite3
 
 class Database:
     def __init__(self, name):
-        self._conn = sqlite3.connect("/Users/admin/FYDP/FYDP/db/fydp.db")
+        self._conn = sqlite3.connect("/home/pi/FYDP/db/fydp.db")
         self._cursor = self._conn.cursor()
 
     def __enter__(self):

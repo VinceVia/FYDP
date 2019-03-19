@@ -79,7 +79,10 @@ class StartPage(tk.Frame):
             self.after(3000, motorRoutine.fakeMotorRoutine(self))
         elif(machine_status == 0):
             self.win = tk.Toplevel()
-            self.win.geometry("300x90")
+            if(settings.language==2):
+                self.win.geometry("400x90")
+            else:
+                self.win.geometry("280x90")
             misc.center(self.win)
             self.win.wm_title(settings.languageList[21][settings.language])
 

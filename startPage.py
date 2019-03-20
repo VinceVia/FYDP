@@ -50,11 +50,11 @@ class StartPage(tk.Frame):
         self.quit.grid(sticky=W, row=5, column=0, padx=10)
         
         self.EN_button = Radiobutton(self, text="EN", indicatoron = 0, value=0, command=self.setEnglish)
-        self.EN_button.config(font=("Times", 60, 'bold'))
+        self.EN_button.config(bd=5, relief='raised', font=("Times", 60, 'bold'))
         self.EN_button.grid(sticky=E, row=4, column=2, padx=10)
         
         self.FR_button = Radiobutton(self, text="FR", indicatoron = 0, value=1, command=self.setFrench)
-        self.FR_button.config(font=("Times", 60, 'bold'))
+        self.FR_button.config(bd=5, relief='raised', font=("Times", 60, 'bold'))
         self.FR_button.grid(sticky=E, row=5, column=2, padx=10)
 
     def getStatus(self):
@@ -79,11 +79,12 @@ class StartPage(tk.Frame):
             self.after(3000, motorRoutine.fakeMotorRoutine(self))
         elif(machine_status == 0):
             self.win = tk.Toplevel()
+            self.win.config(bd=5, relief='raised')
 
             if(settings.language==2):
-                self.win.geometry("1550x500")
+                self.win.geometry("1550x400")
             else:
-                self.win.geometry("280x90")
+                self.win.geometry("1050x400")
 
             misc.center(self.win)
             self.win.wm_title(settings.languageList[21][settings.language])
@@ -101,11 +102,11 @@ class StartPage(tk.Frame):
 
             quitButton = Button(self.win, borderwidth=5, text=settings.languageList[25][settings.language], command=self.win.destroy, bg="red")
             quitButton.config(font=("Times", 50))
-            quitButton.grid(row=2, column=0, sticky=W, pady=20, padx=20)
+            quitButton.grid(row=2, column=0, sticky=W, pady=10, padx=20)
             
             submitButton = Button(self.win, borderwidth=5, text=settings.languageList[24][settings.language], command=self.submit, bg='green')
             submitButton.config(font=("Times", 50))
-            submitButton.grid(row=2, column=1, sticky=E, pady=20, padx=20)
+            submitButton.grid(row=2, column=1, sticky=E, pady=10, padx=20)
         else:
             resultByIDDao.ResultByIDDao.setNewRow()
             settings.test_number += 1
@@ -121,7 +122,6 @@ class StartPage(tk.Frame):
             resultByIDDao.ResultByIDDao.setSensorID(sensorID)
             resultByIDDao.ResultByIDDao.setTestStatus(1) #In Progress
             self.status = self.getStatus()
-            print(self.status)
             self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
             self.after(3000, motorRoutine.fakeMotorRoutine(self))
     
@@ -153,12 +153,18 @@ class StartPage(tk.Frame):
 
     def errorMessage(self, message):
         win = tk.Toplevel()
-        win.geometry("500x500")
+        win.config(bd=5, relief='raised')
+        win.geometry("680x250")
         misc.center(win)
         win.wm_title(settings.languageList[26][settings.language])
 
-        Label(win, text=message).grid(row=0, column=0)
-        Button(win, text=settings.languageList[25][settings.language], command=win.destroy).grid(row=1, column=0, sticky=W, pady=4, padx=4)
+        errorLabel = Label(win, text=message)
+        errorLabel.config(font=("Times", 50, 'bold'))
+        errorLabel.grid(sticky=E+W, row=0, column=0, padx=10, pady=10)
+        
+        errorButton = Button(win, borderwidth=5, text=settings.languageList[25][settings.language], command=win.destroy, bg='red')
+        errorButton.config(font=("Times", 50))
+        errorButton.grid(row=1, column=0, sticky=W, pady=20, padx=10)
         
     def returning(self):
         print("Returning!")

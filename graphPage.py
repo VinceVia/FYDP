@@ -21,16 +21,16 @@ class GraphPage(tk.Frame):
         self.plotGraph()
         self.status = self.getStatus()
         self.progress_label = Label(self, text=settings.languageList[1][settings.language] + ' ' + self.status)
-        self.progress_label.config(font=("Times", 18))
-        self.progress_label.grid(sticky=W, row=1, column=0, columnspan=2, padx=20)
+        self.progress_label.config(font=("Times", 50))
+        self.progress_label.grid(sticky=W, row=1, column=0, columnspan=2, pady=5, padx=10)
 
         self.returnButton = Button(self, text=settings.languageList[8][settings.language], fg="blue", relief="flat", command=lambda: controller.show_frame("StartPage"))
-        self.returnButton.config(font=("Times", 18))
-        self.returnButton.grid(sticky=W, row=2, column=0, pady=10, padx=20)
+        self.returnButton.config(font=("Times", 50))
+        self.returnButton.grid(sticky=W, row=2, column=0, pady=10)
 
         self.csvButton = Button(self, borderwidth=5, text=settings.languageList[9][settings.language], command=self.csvExport, bg="green")
-        self.csvButton.config(font=("Times", 18))
-        self.csvButton.grid(row=2, column=1, pady=5, padx=0)
+        self.csvButton.config(font=("Times", 50))
+        self.csvButton.grid(sticky=E, row=2, column=1, pady=5, padx=10)
 
     def plotGraph(self):
         velocity = detailedResultsDao.DetailedResultsDao.get_velocities(settings.test_number)
@@ -45,13 +45,13 @@ class GraphPage(tk.Frame):
                 }
         df = DataFrame(Data)
 
-        figure = plt.Figure(figsize=(8,4.5), dpi=60)
+        figure = plt.Figure(figsize=(12,4.5), dpi=150)
         ax = figure.add_subplot(111)
         ax.set_title(settings.languageList[10][settings.language], fontweight="bold", fontsize=16)
         ax.set_xlabel(settings.languageList[12][settings.language])
         ax.set_ylabel(settings.languageList[11][settings.language])
         line = FigureCanvasTkAgg(figure, self)
-        line.get_tk_widget().grid(sticky=E, row=0, columnspan=2)
+        line.get_tk_widget().grid(sticky=E+W, row=0, columnspan=2, padx=10)
         df.plot(kind='line', y='Velocity', ax=ax, legend=False, fontsize=11)
 
     def getStatus(self):
@@ -66,9 +66,7 @@ class GraphPage(tk.Frame):
         return switcher.get(machine_status, settings.languageList[18][settings.language])
 
     def csvExport(self):
-        print("exporting")
         dateTimeStamp = time.strftime('%Y%m%d%H%M%S')
-
         detailedResultsData = detailedResultsDao.DetailedResultsDao.get_table()
 
         f = open(dateTimeStamp + 'detailed_results_output.csv', 'w', newline="")

@@ -13,8 +13,7 @@ if __name__ == "__main__":
     settings.language = 2 #French as default language
     languageDao.LanguageDao.get_strings()
     settings.test_number = resultByIDDao.ResultByIDDao.get_test_number()[0]
-    settings.failure_mode = resultByIDDao.ResultByIDDao.get_failure_mode(settings.test_number)[0]
-    print(settings.failure_mode)
+    #settings.failure_mode = resultByIDDao.ResultByIDDao.get_failure_mode(settings.test_number)[0]
     app = mainApp.MainApp()
     misc.center(app)
     app.mainloop()

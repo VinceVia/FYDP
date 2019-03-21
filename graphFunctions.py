@@ -54,7 +54,7 @@ def getStatus(self, isPrevious):
         3: settings.languageList[15][settings.language], #Failure
         4: settings.languageList[14][settings.language]  #Success
     }
-    machine_status = resultByIDDao.ResultByIDDao.get_test_status(settings.test_number - 1)[0]
+    machine_status = resultByIDDao.ResultByIDDao.get_test_status(test_number)[0]
     return switcher.get(machine_status, settings.languageList[18][settings.language])
 
 def getFailureInfo(self, isPrevious):
@@ -65,8 +65,8 @@ def getFailureInfo(self, isPrevious):
 
     message = settings.languageList[40][settings.language] + ' '
 
-    overheat_vals = detailedResultsDao.DetailedResultsDao.get_overheat(settings.test_number - 1)
-    detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_id(settings.test_number - 1)[0]
+    overheat_vals = detailedResultsDao.DetailedResultsDao.get_overheat(test_number)
+    detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_id(test_number)[0]
     for val in overheat_vals:
         if(val>0):
             test_section=detailedResultsDao.DetailedResultsDao.get_test_section_by_id(detailed_id)[0]
@@ -87,5 +87,13 @@ def getFailurePoints(self, isPrevious):
     else:
         test_number = settings.test_number
 
-    times_overheated = detailedResultsDao.DetailedResultsDao.get_times_overheated(settings.test_number - 1)
-    self.markers_on = times_overheated
+    failure_mode = resultByIDDao.ResultByIDDao.get_failure_mode(test_number)[0]
+    if(failure_mode == 1): #overheat
+        times_overheated = detailedResultsDao.DetailedResultsDao.get_times_overheated(test_number)
+        self.markers_on = times_overheated
+    elif(failure_mode == 2): #Air Leak or Device Activation
+        print("Air Leak")
+    elif(failure_mode == 3): #Failure to Exhaust Air
+        print("Failed to Exhaust")
+    elif(failure_mode == 4): #Exhausting Too Long (>1 s)
+        print("Exhausting too long")

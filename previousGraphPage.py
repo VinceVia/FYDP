@@ -76,20 +76,34 @@ class PreviousGraphPage(tk.Frame):
         return switcher.get(machine_status, settings.languageList[18][settings.language])
 
     def getFailureInfo(self):
-        self.createPopup('FAILED BRO')
+        message = settings.languageList[40][settings.language] + ' '
+
+        overheat_vals = detailedResultsDao.DetailedResultsDao.get_overheat(settings.test_number - 1)
+        detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_id(settings.test_number - 1)[0]
+        for val in overheat_vals:
+            if(val>0):
+                test_section=detailedResultsDao.DetailedResultsDao.get_test_section_by_id(detailed_id)[0]
+                time = detailedResultsDao.DetailedResultsDao.get_time_by_id(detailed_id)[0]
+                velocity = detailedResultsDao.DetailedResultsDao.get_velocity_by_id(detailed_id)[0]
+
+                message += (test_section + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[36][settings.language] 
+                + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
+                + ' ' + str(velocity) +' m/s ')
+
+                break
+            detailed_id += 1
+        self.createPopup(message)
 
     def createPopup(self, message):
-        print("FAIL")
-
         win = tk.Toplevel()
         win.config(bd=5, relief='raised')
-        win.geometry("700x250")
+        win.geometry("750x300")
         misc.center(win)
         win.wm_title(settings.languageList[31][settings.language])
 
-        errorLabel = Label(win, text=message)
-        errorLabel.config(font=("Arial", 45, 'bold'))
-        errorLabel.grid(sticky=E+W, row=0, column=0, padx=10, pady=10)
+        errorLabel = Label(win, text=message, justify=LEFT)
+        errorLabel.config(font=("Arial", 40))
+        errorLabel.grid(sticky=E, row=0, column=0, padx=10, pady=10)
         
         errorButton = Button(win, borderwidth=5, text=settings.languageList[25][settings.language], command=win.destroy, bg='red')
         errorButton.config(font=("Arial", 45))

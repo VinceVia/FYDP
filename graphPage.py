@@ -9,8 +9,6 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import settings
 import detailedResultsDao
 import resultByIDDao
-import csv
-import time
 import misc
 
 class GraphPage(tk.Frame):
@@ -96,22 +94,7 @@ class GraphPage(tk.Frame):
         errorButton.grid(row=1, column=0, sticky=W, pady=20, padx=10)
 
     def csvExport(self):
-        dateTimeStamp = time.strftime('%Y%m%d%H%M%S')
-
-        detailedResultsData = detailedResultsDao.DetailedResultsDao.get_table()
-
-        f = open(dateTimeStamp + 'detailed_results_output.csv', 'w', newline="")
-        writer = csv.writer(f,delimiter=',')
-        writer.writerows(detailedResultsData)
-        f.close()
-
-        resultByIDData = resultByIDDao.ResultByIDDao.get_table()
-
-        f = open(dateTimeStamp + 'result_by_id_output.csv', 'w', newline="")
-        writer = csv.writer(f,delimiter=',')
-        writer.writerows(resultByIDData)
-        f.close()
-
+        misc.csvExport()
         self.createPopup(settings.languageList[32][settings.language])
 
     def setEnglish(self):

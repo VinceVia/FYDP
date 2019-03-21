@@ -9,8 +9,6 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import settings
 import detailedResultsDao
 import resultByIDDao
-import csv
-import time
 import misc
 
 class PreviousGraphPage(tk.Frame):
@@ -90,7 +88,7 @@ class PreviousGraphPage(tk.Frame):
                 time = detailedResultsDao.DetailedResultsDao.get_time_by_id(detailed_id)[0]
                 velocity = detailedResultsDao.DetailedResultsDao.get_velocity_by_id(detailed_id)[0]
 
-                message += (test_section + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[36][settings.language] 
+                message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[36][settings.language] 
                 + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
                 + ' ' + str(velocity) +' m/s ')
 
@@ -105,7 +103,7 @@ class PreviousGraphPage(tk.Frame):
     def createPopup(self, message):
         win = tk.Toplevel()
         win.config(bd=5, relief='raised')
-        win.geometry("750x300")
+        win.geometry("750x350")
         misc.center(win)
         win.wm_title(settings.languageList[31][settings.language])
 
@@ -118,22 +116,7 @@ class PreviousGraphPage(tk.Frame):
         errorButton.grid(row=1, column=0, sticky=W, pady=20, padx=10)
 
     def csvExport(self):
-        dateTimeStamp = time.strftime('%Y%m%d%H%M%S')
-
-        detailedResultsData = detailedResultsDao.DetailedResultsDao.get_table()
-
-        f = open(dateTimeStamp + 'detailed_results_output.csv', 'w', newline="")
-        writer = csv.writer(f,delimiter=',')
-        writer.writerows(detailedResultsData)
-        f.close()
-
-        resultByIDData = resultByIDDao.ResultByIDDao.get_table()
-
-        f = open(dateTimeStamp + 'result_by_id_output.csv', 'w', newline="")
-        writer = csv.writer(f,delimiter=',')
-        writer.writerows(resultByIDData)
-        f.close()
-
+        misc.csvExport()
         self.createPopup(settings.languageList[32][settings.language])
 
     def setEnglish(self):

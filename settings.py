@@ -3,4 +3,3 @@ def init():
     global languagelist
     global test_number
     global machine_status
-    

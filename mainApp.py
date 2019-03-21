@@ -10,11 +10,8 @@ class MainApp(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
-        # the container is where we'll stack a bunch of frames
-        # on top of each other, then the one we want visible
-        # will be raised above the others
         container = tk.Frame(self, width=2000, height=900)
-        container.pack(side="top", expand=False) #, fill="both", expand=True)
+        container.pack(side="top", expand=False)
         container.pack_propagate(0)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(1, weight=1)

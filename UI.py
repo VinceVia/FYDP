@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/Users/admin/anaconda3/bin/python
 import mainApp
 import sqlite3
 import tkinter as tk

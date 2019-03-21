@@ -11,6 +11,7 @@ import detailedResultsDao
 import resultByIDDao
 import csv
 import time
+import misc
 
 class PreviousGraphPage(tk.Frame):
 
@@ -20,9 +21,16 @@ class PreviousGraphPage(tk.Frame):
 
         self.plotGraph()
         self.status = self.getStatus()
+        machine_status = resultByIDDao.ResultByIDDao.get_test_status(settings.test_number - 1)[0]
+
         self.progress_label = Label(self, text=settings.languageList[1][settings.language] + ' ' + self.status)
         self.progress_label.config(font=("Arial", 45))
         self.progress_label.grid(sticky=W, row=1, column=0, columnspan=2, pady=5, padx=10)
+
+        if(machine_status == 3):
+            self.infoButton = Button(self, borderwidth=5, text=settings.languageList[30][settings.language], command=self.getFailureInfo, bg="green")
+            self.infoButton.config(font=("Arial", 45))
+            self.infoButton.grid(sticky=E, row=1, column=1, pady=5, padx=10)
 
         self.returnButton = Button(self, text=settings.languageList[8][settings.language], fg="blue", relief="flat", command=lambda: controller.show_frame("StartPage"))
         self.returnButton.config(font=("Arial", 45))
@@ -46,7 +54,7 @@ class PreviousGraphPage(tk.Frame):
                 }
         df = DataFrame(Data)
 
-        figure = plt.Figure(figsize=(12,4.5), dpi=150)
+        figure = plt.Figure(figsize=(12,4.5), dpi=60)
         ax = figure.add_subplot(111)
         ax.set_title(settings.languageList[10][settings.language], fontweight="bold", fontsize=16)
         ax.set_xlabel(settings.languageList[12][settings.language])
@@ -67,27 +75,44 @@ class PreviousGraphPage(tk.Frame):
         machine_status = resultByIDDao.ResultByIDDao.get_test_status(settings.test_number - 1)[0]
         return switcher.get(machine_status, settings.languageList[18][settings.language])
 
+    def getFailureInfo(self):
+        self.createPopup('FAILED BRO')
+
+    def createPopup(self, message):
+        print("FAIL")
+
+        win = tk.Toplevel()
+        win.config(bd=5, relief='raised')
+        win.geometry("700x250")
+        misc.center(win)
+        win.wm_title(settings.languageList[31][settings.language])
+
+        errorLabel = Label(win, text=message)
+        errorLabel.config(font=("Arial", 45, 'bold'))
+        errorLabel.grid(sticky=E+W, row=0, column=0, padx=10, pady=10)
+        
+        errorButton = Button(win, borderwidth=5, text=settings.languageList[25][settings.language], command=win.destroy, bg='red')
+        errorButton.config(font=("Arial", 45))
+        errorButton.grid(row=1, column=0, sticky=W, pady=20, padx=10)
+
     def csvExport(self):
-        print("exporting")
         dateTimeStamp = time.strftime('%Y%m%d%H%M%S')
 
         detailedResultsData = detailedResultsDao.DetailedResultsDao.get_table()
-        firstRow = 'id', 'test_id', 'velocity', 'time', 'timestamp', 'sensor_id'
 
         f = open(dateTimeStamp + 'detailed_results_output.csv', 'w', newline="")
         writer = csv.writer(f,delimiter=',')
-        writer.writerow(firstRow)
         writer.writerows(detailedResultsData)
         f.close()
 
         resultByIDData = resultByIDDao.ResultByIDDao.get_table()
-        firstRow = 'id', 'sensor_id', 'test_passed', 'test_status'
 
         f = open(dateTimeStamp + 'result_by_id_output.csv', 'w', newline="")
         writer = csv.writer(f,delimiter=',')
-        writer.writerow(firstRow)
         writer.writerows(resultByIDData)
         f.close()
+
+        self.createPopup(settings.languageList[32][settings.language])
 
     def setEnglish(self):
         settings.language = 1
@@ -102,4 +127,5 @@ class PreviousGraphPage(tk.Frame):
         self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
         self.csvButton.configure(text=settings.languageList[9][settings.language])
         self.returnButton.configure(text=settings.languageList[8][settings.language])
+        self.infoButton.configure(text=settings.languageList[30][settings.language])
         self.plotGraph()

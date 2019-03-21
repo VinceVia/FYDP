@@ -17,15 +17,18 @@ class GraphPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
-        self.plotGraph()
         self.status = self.getStatus()
-        machine_status = resultByIDDao.ResultByIDDao.get_test_status(settings.test_number)[0]
+        self.machine_status = resultByIDDao.ResultByIDDao.get_test_status(settings.test_number)[0]
+        self.markers_on = []
+        if(self.machine_status == 3):
+            self.getFailurePoints()
+        self.plotGraph()
 
         self.progress_label = Label(self, text=settings.languageList[1][settings.language] + ' ' + self.status)
         self.progress_label.config(font=("Arial", 45))
         self.progress_label.grid(sticky=W, row=1, column=0, columnspan=2, pady=5, padx=10)
 
-        if(machine_status == 3):
+        if(self.machine_status == 3):
             self.infoButton = Button(self, borderwidth=5, text=settings.languageList[30][settings.language], command=self.getFailureInfo, bg="green")
             self.infoButton.config(font=("Arial", 45))
             self.infoButton.grid(sticky=E, row=1, column=1, pady=5, padx=10)
@@ -56,10 +59,10 @@ class GraphPage(tk.Frame):
         ax.set_title(settings.languageList[10][settings.language], fontweight="bold", fontsize=16)
         ax.set_xlabel(settings.languageList[12][settings.language])
         ax.set_ylabel(settings.languageList[11][settings.language])
-        ax.set_axisbelow(True)
         line = FigureCanvasTkAgg(figure, self)
-        line.get_tk_widget().grid(sticky=E+W, row=0, columnspan=2, padx=10)
-        ax2 = df.plot(kind='line', y='Velocity', ax=ax, legend=False, fontsize=11)
+        line.get_tk_widget().grid(sticky=E+W, row=0, columnspan=2)
+        ax2 = df.plot(kind='line', color='black', y='Velocity', ax=ax, legend=False, fontsize=11, marker='o', markevery=self.markers_on, 
+            markerfacecolor='red', markeredgecolor='red', markersize=10)
         ax2.grid()
 
     def getStatus(self):
@@ -74,7 +77,27 @@ class GraphPage(tk.Frame):
         return switcher.get(machine_status, settings.languageList[18][settings.language])
 
     def getFailureInfo(self):
-        misc.createPopup('FAILED BRO')
+        message = settings.languageList[40][settings.language] + ' '
+
+        overheat_vals = detailedResultsDao.DetailedResultsDao.get_overheat(settings.test_number)
+        detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_id(settings.test_number)[0]
+        for val in overheat_vals:
+            if(val>0):
+                test_section=detailedResultsDao.DetailedResultsDao.get_test_section_by_id(detailed_id)[0]
+                time = detailedResultsDao.DetailedResultsDao.get_time_by_id(detailed_id)[0]
+                velocity = detailedResultsDao.DetailedResultsDao.get_velocity_by_id(detailed_id)[0]
+
+                message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[36][settings.language] 
+                + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
+                + ' ' + str(velocity) +' m/s ')
+
+                break
+            detailed_id += 1
+        misc.createPopup(message)
+
+    def getFailurePoints(self):
+        times_overheated = detailedResultsDao.DetailedResultsDao.get_times_overheated(settings.test_number)
+        self.markers_on = times_overheated
 
     def csvExport(self):
         misc.csvExport()
@@ -93,4 +116,6 @@ class GraphPage(tk.Frame):
         self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
         self.csvButton.configure(text=settings.languageList[9][settings.language])
         self.returnButton.configure(text=settings.languageList[8][settings.language])
+        if(self.machine_status == 3):
+            self.infoButton.configure(text=settings.languageList[30][settings.language])
         self.plotGraph()

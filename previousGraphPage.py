@@ -117,5 +117,6 @@ class PreviousGraphPage(tk.Frame):
         self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
         self.csvButton.configure(text=settings.languageList[9][settings.language])
         self.returnButton.configure(text=settings.languageList[8][settings.language])
-        self.infoButton.configure(text=settings.languageList[30][settings.language])
+        if(self.machine_status == 3):
+            self.infoButton.configure(text=settings.languageList[30][settings.language])
         self.plotGraph()

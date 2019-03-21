@@ -24,8 +24,8 @@ class PreviousGraphPage(tk.Frame):
         self.progress_label.grid(sticky=W, row=1, column=0, columnspan=2, pady=5, padx=10)
 
         if(self.machine_status == 3):
-            self.infoButton = Button(self, borderwidth=5, text=settings.languageList[30][settings.language], command=self.getFailureInfo, bg="green")
-            self.infoButton.config(font=("Arial", 45))
+            self.infoButton = Button(self, borderwidth=5, text=settings.languageList[30][settings.language], command=self.getFailureInfo, bg="grey")
+            self.infoButton.config(font=("Arial", 40))
             self.infoButton.grid(sticky=E, row=1, column=1, pady=5, padx=10)
 
         self.returnButton = Button(self, text=settings.languageList[8][settings.language], fg="blue", relief="flat", command=lambda: controller.show_frame("StartPage"))

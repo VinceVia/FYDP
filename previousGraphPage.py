@@ -53,7 +53,8 @@ class PreviousGraphPage(tk.Frame):
         ax.set_ylabel(settings.languageList[11][settings.language])
         line = FigureCanvasTkAgg(figure, self)
         line.get_tk_widget().grid(sticky=E+W, row=0, columnspan=2)
-        df.plot(kind='line', y='Velocity', ax=ax, legend=False, fontsize=11)
+        ax2 = df.plot(kind='line', y='Velocity', ax=ax, legend=False, fontsize=11)
+        ax2.grid()
 
     def getStatus(self):
         switcher = { 

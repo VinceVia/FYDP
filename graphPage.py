@@ -50,9 +50,11 @@ class GraphPage(tk.Frame):
         ax.set_title(settings.languageList[10][settings.language], fontweight="bold", fontsize=16)
         ax.set_xlabel(settings.languageList[12][settings.language])
         ax.set_ylabel(settings.languageList[11][settings.language])
+        ax.set_axisbelow(True)
         line = FigureCanvasTkAgg(figure, self)
         line.get_tk_widget().grid(sticky=E+W, row=0, columnspan=2, padx=10)
-        df.plot(kind='line', y='Velocity', ax=ax, legend=False, fontsize=11)
+        ax2 = df.plot(kind='line', y='Velocity', ax=ax, legend=False, fontsize=11)
+        ax2.grid()
 
     def getStatus(self):
         switcher = { 

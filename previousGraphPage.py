@@ -99,7 +99,8 @@ class PreviousGraphPage(tk.Frame):
         self.createPopup(message)
 
     def getFailurePoints(self):
-        self.markers_on = [100, 200]
+        times_overheated = detailedResultsDao.DetailedResultsDao.get_times_overheated(settings.test_number - 1)
+        self.markers_on = times_overheated
 
     def createPopup(self, message):
         win = tk.Toplevel()

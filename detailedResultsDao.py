@@ -18,6 +18,11 @@ class DetailedResultsDao:
 		database.execute("SELECT overheat FROM detailed_results WHERE test_id=(?)", (test_number,))
 		return [item[0] for item in database.fetchall()]
 
+	def get_times_overheated(test_number):
+		database = dao.Database('fydp')
+		database.execute("SELECT time FROM detailed_results WHERE test_id=(?) AND overheat=(?)", (test_number, 1,))
+		return [item[0] for item in database.fetchall()]
+
 	def get_first_id_by_test_id(test_number):
 		database = dao.Database('fydp')
 		database.execute("SELECT id FROM detailed_results WHERE test_id=(?) AND time=(?)", (test_number, 0,))

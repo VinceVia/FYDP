@@ -1,15 +1,10 @@
 import tkinter as tk
 from tkinter import *
-from pandas import DataFrame
-import matplotlib
-matplotlib.use("TkAgg")
-import matplotlib.pyplot as plt
-plt.rcParams.update({'font.size': 14})
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import settings
 import detailedResultsDao
 import resultByIDDao
 import misc
+import graphFunctions
 
 class PreviousGraphPage(tk.Frame):
 
@@ -22,7 +17,7 @@ class PreviousGraphPage(tk.Frame):
         self.markers_on = []
         if(self.machine_status == 3):
             self.getFailurePoints()
-        self.plotGraph()
+        graphFunctions.plotGraph(self, True)
 
         self.progress_label = Label(self, text=settings.languageList[1][settings.language] + ' ' + self.status)
         self.progress_label.config(font=("Arial", 45))
@@ -40,31 +35,6 @@ class PreviousGraphPage(tk.Frame):
         self.csvButton = Button(self, borderwidth=5, text=settings.languageList[9][settings.language], command=self.csvExport, bg="green")
         self.csvButton.config(font=("Arial", 45))
         self.csvButton.grid(sticky=E, row=2, column=1, pady=5, padx=10)
-
-    def plotGraph(self):
-        test_number = settings.test_number - 1
-        velocity = detailedResultsDao.DetailedResultsDao.get_velocities(test_number)
-        time = detailedResultsDao.DetailedResultsDao.get_times(test_number)
-
-        if(velocity==[] and time==[]):
-            velocity = [0]
-            time = [0]
-
-        Data = {'Time': time,
-                 'Velocity': velocity
-                }
-        df = DataFrame(Data)
-
-        figure = plt.Figure(figsize=(12,4.5), dpi=60)
-        ax = figure.add_subplot(111)
-        ax.set_title(settings.languageList[10][settings.language], fontweight="bold", fontsize=16)
-        ax.set_xlabel(settings.languageList[12][settings.language])
-        ax.set_ylabel(settings.languageList[11][settings.language])
-        line = FigureCanvasTkAgg(figure, self)
-        line.get_tk_widget().grid(sticky=E+W, row=0, columnspan=2)
-        ax2 = df.plot(kind='line', color='black', y='Velocity', ax=ax, legend=False, fontsize=11, marker='o', markevery=self.markers_on, 
-            markerfacecolor='red', markeredgecolor='red', markersize=10)
-        ax2.grid()
 
     def getStatus(self):
         switcher = { 
@@ -119,4 +89,4 @@ class PreviousGraphPage(tk.Frame):
         self.returnButton.configure(text=settings.languageList[8][settings.language])
         if(self.machine_status == 3):
             self.infoButton.configure(text=settings.languageList[30][settings.language])
-        self.plotGraph()
+        graphFunctions.plotGraph(self, True)

@@ -30,7 +30,7 @@ def plotGraph(self, isPrevious):
             }
     df = DataFrame(Data)
 
-    figure = plt.Figure(figsize=(12,4.5), dpi=60)
+    figure = plt.Figure(figsize=(12,4.5), dpi=150)
     ax = figure.add_subplot(111)
     ax.set_title(settings.languageList[10][settings.language], fontweight="bold", fontsize=16)
     ax.set_xlabel(settings.languageList[12][settings.language])
@@ -64,21 +64,67 @@ def getFailureInfo(self, isPrevious):
         test_number = settings.test_number
 
     message = settings.languageList[40][settings.language] + ' '
+    failure_mode = resultByIDDao.ResultByIDDao.get_failure_mode(test_number)[0]
+    if(failure_mode == 1): #overheat
+        overheat_vals = detailedResultsDao.DetailedResultsDao.get_overheat(test_number)
+        detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_id(test_number)[0]
+        for val in overheat_vals:
+            if(val>0):
+                test_section=detailedResultsDao.DetailedResultsDao.get_test_section_by_id(detailed_id)[0]
+                time = detailedResultsDao.DetailedResultsDao.get_time_by_id(detailed_id)[0]
+                velocity = detailedResultsDao.DetailedResultsDao.get_velocity_by_id(detailed_id)[0]
 
-    overheat_vals = detailedResultsDao.DetailedResultsDao.get_overheat(test_number)
-    detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_id(test_number)[0]
-    for val in overheat_vals:
-        if(val>0):
-            test_section=detailedResultsDao.DetailedResultsDao.get_test_section_by_id(detailed_id)[0]
-            time = detailedResultsDao.DetailedResultsDao.get_time_by_id(detailed_id)[0]
-            velocity = detailedResultsDao.DetailedResultsDao.get_velocity_by_id(detailed_id)[0]
+                message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[36][settings.language] 
+                + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
+                + ' ' + str(velocity) +' m/s ')
+                break
+            detailed_id += 1
+    elif(failure_mode == 2): #Air Leak or Device Activation
+        print("not ready yet")
+        # overheat_vals = detailedResultsDao.DetailedResultsDao.get_overheat(test_number)
+        # detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_id(test_number)[0]
+        # for val in overheat_vals:
+        #     if(val>0):
+        #         test_section=detailedResultsDao.DetailedResultsDao.get_test_section_by_id(detailed_id)[0]
+        #         time = detailedResultsDao.DetailedResultsDao.get_time_by_id(detailed_id)[0]
+        #         velocity = detailedResultsDao.DetailedResultsDao.get_velocity_by_id(detailed_id)[0]
 
-            message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[36][settings.language] 
-            + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
-            + ' ' + str(velocity) +' m/s ')
+        #         message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[36][settings.language] 
+        #         + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
+        #         + ' ' + str(velocity) +' m/s ')
+        #         break
+        #     detailed_id += 1
+    elif(failure_mode == 3): #Failure to Exhaust Air
+        print("Failed to Exhaust")
+        # overheat_vals = detailedResultsDao.DetailedResultsDao.get_overheat(test_number)
+        # detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_id(test_number)[0]
+        # for val in overheat_vals:
+        #     if(val>0):
+        #         test_section=detailedResultsDao.DetailedResultsDao.get_test_section_by_id(detailed_id)[0]
+        #         time = detailedResultsDao.DetailedResultsDao.get_time_by_id(detailed_id)[0]
+        #         velocity = detailedResultsDao.DetailedResultsDao.get_velocity_by_id(detailed_id)[0]
 
-            break
-        detailed_id += 1
+        #         message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[36][settings.language] 
+        #         + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
+        #         + ' ' + str(velocity) +' m/s ')
+        #         break
+        #     detailed_id += 1
+    elif(failure_mode == 4): #Exhausting Too Long (>1 s)
+        print("Exhausting too long")
+        # overheat_vals = detailedResultsDao.DetailedResultsDao.get_overheat(test_number)
+        # detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_id(test_number)[0]
+        # for val in overheat_vals:
+        #     if(val>0):
+        #         test_section=detailedResultsDao.DetailedResultsDao.get_test_section_by_id(detailed_id)[0]
+        #         time = detailedResultsDao.DetailedResultsDao.get_time_by_id(detailed_id)[0]
+        #         velocity = detailedResultsDao.DetailedResultsDao.get_velocity_by_id(detailed_id)[0]
+
+        #         message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[36][settings.language] 
+        #         + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
+        #         + ' ' + str(velocity) +' m/s ')
+        #         break
+        #     detailed_id += 1
+
     misc.createPopup(message)
 
 def getFailurePoints(self, isPrevious):

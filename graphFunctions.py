@@ -8,13 +8,16 @@ plt.rcParams.update({'font.size': 14})
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter as tk
 from tkinter import *
+import detailedResultsDao
+import resultByIDDao
+import misc
 
 def plotGraph(self, isPrevious):
     if(isPrevious):
         test_number = settings.test_number - 1
     else:
         test_number = settings.test_number
-        
+
     velocity = detailedResultsDao.DetailedResultsDao.get_velocities(test_number)
     time = detailedResultsDao.DetailedResultsDao.get_times(test_number)
 
@@ -37,3 +40,52 @@ def plotGraph(self, isPrevious):
     ax2 = df.plot(kind='line', color='black', y='Velocity', ax=ax, legend=False, fontsize=11, marker='o', markevery=self.markers_on, 
         markerfacecolor='red', markeredgecolor='red', markersize=10)
     ax2.grid()
+
+def getStatus(self, isPrevious):
+    if(isPrevious):
+        test_number = settings.test_number - 1
+    else:
+        test_number = settings.test_number
+
+    switcher = { 
+        0: settings.languageList[13][settings.language], #Ready to Start
+        1: settings.languageList[17][settings.language], #In Progress
+        2: settings.languageList[16][settings.language], #Stopped
+        3: settings.languageList[15][settings.language], #Failure
+        4: settings.languageList[14][settings.language]  #Success
+    }
+    machine_status = resultByIDDao.ResultByIDDao.get_test_status(settings.test_number - 1)[0]
+    return switcher.get(machine_status, settings.languageList[18][settings.language])
+
+def getFailureInfo(self, isPrevious):
+    if(isPrevious):
+        test_number = settings.test_number - 1
+    else:
+        test_number = settings.test_number
+
+    message = settings.languageList[40][settings.language] + ' '
+
+    overheat_vals = detailedResultsDao.DetailedResultsDao.get_overheat(settings.test_number - 1)
+    detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_id(settings.test_number - 1)[0]
+    for val in overheat_vals:
+        if(val>0):
+            test_section=detailedResultsDao.DetailedResultsDao.get_test_section_by_id(detailed_id)[0]
+            time = detailedResultsDao.DetailedResultsDao.get_time_by_id(detailed_id)[0]
+            velocity = detailedResultsDao.DetailedResultsDao.get_velocity_by_id(detailed_id)[0]
+
+            message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[36][settings.language] 
+            + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
+            + ' ' + str(velocity) +' m/s ')
+
+            break
+        detailed_id += 1
+    misc.createPopup(message)
+
+def getFailurePoints(self, isPrevious):
+    if(isPrevious):
+        test_number = settings.test_number - 1
+    else:
+        test_number = settings.test_number
+
+    times_overheated = detailedResultsDao.DetailedResultsDao.get_times_overheated(settings.test_number - 1)
+    self.markers_on = times_overheated

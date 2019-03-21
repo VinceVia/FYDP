@@ -18,16 +18,19 @@ class PreviousGraphPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-
-        self.plotGraph()
+        
         self.status = self.getStatus()
-        machine_status = resultByIDDao.ResultByIDDao.get_test_status(settings.test_number - 1)[0]
+        self.machine_status = resultByIDDao.ResultByIDDao.get_test_status(settings.test_number - 1)[0]
+        self.markers_on = []
+        if(self.machine_status == 3):
+            self.getFailurePoints()
+        self.plotGraph()
 
         self.progress_label = Label(self, text=settings.languageList[1][settings.language] + ' ' + self.status)
         self.progress_label.config(font=("Arial", 45))
         self.progress_label.grid(sticky=W, row=1, column=0, columnspan=2, pady=5, padx=10)
 
-        if(machine_status == 3):
+        if(self.machine_status == 3):
             self.infoButton = Button(self, borderwidth=5, text=settings.languageList[30][settings.language], command=self.getFailureInfo, bg="green")
             self.infoButton.config(font=("Arial", 45))
             self.infoButton.grid(sticky=E, row=1, column=1, pady=5, padx=10)
@@ -61,7 +64,8 @@ class PreviousGraphPage(tk.Frame):
         ax.set_ylabel(settings.languageList[11][settings.language])
         line = FigureCanvasTkAgg(figure, self)
         line.get_tk_widget().grid(sticky=E+W, row=0, columnspan=2)
-        ax2 = df.plot(kind='line', y='Velocity', ax=ax, legend=False, fontsize=11)
+        ax2 = df.plot(kind='line', color='black', y='Velocity', ax=ax, legend=False, fontsize=11, marker='o', markevery=self.markers_on, 
+            markerfacecolor='red', markeredgecolor='red', markersize=10)
         ax2.grid()
 
     def getStatus(self):
@@ -93,6 +97,9 @@ class PreviousGraphPage(tk.Frame):
                 break
             detailed_id += 1
         self.createPopup(message)
+
+    def getFailurePoints(self):
+        self.markers_on = [100, 200]
 
     def createPopup(self, message):
         win = tk.Toplevel()

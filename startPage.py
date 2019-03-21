@@ -16,45 +16,45 @@ class StartPage(tk.Frame):
         self.controller = controller
 
         self.label = Label(self, text=settings.languageList[0][settings.language])
-        self.label.config(font=("Times", 90, 'bold'))
+        self.label.config(font=("Arial", 80, 'bold'))
         self.label.grid(row=0, columnspan=3, padx=10, pady=20)
         
         self.status = self.getStatus()
         self.progress_label = Label(self, text=settings.languageList[1][settings.language] + ' ' + self.getStatus())
-        self.progress_label.config(font=("Times", 60))
+        self.progress_label.config(font=("Arial", 55))
         self.progress_label.grid(row=1, columnspan=3, pady=5)
         
         self.results_link = Button(self, text=settings.languageList[2][settings.language], fg="blue", relief="flat", command=lambda: controller.show_frame("GraphPage"))
-        self.results_link.config(font=("Times", 60, "italic"))
+        self.results_link.config(font=("Arial", 55, "italic"))
         self.results_link.grid(row=2, columnspan=3)
 
         self.start_button = Button(self, borderwidth=5, padx=16, text=settings.languageList[3][settings.language], command=self.start, bg="green")
-        self.start_button.config(font=("Times", 60, 'bold'))
+        self.start_button.config(font=("Arial", 55, 'bold'))
         self.start_button.grid(sticky=W, row=3, column=0, padx=10, pady=100)
 
         self.stop_button = Button(self, borderwidth=5, padx=16, text=settings.languageList[4][settings.language], command=self.stop, bg="red")
-        self.stop_button.config(font=("Times", 60, 'bold'))
+        self.stop_button.config(font=("Arial", 55, 'bold'))
         self.stop_button.grid(sticky=E, row=3, column=1, pady=100)
 
         self.reset_button = Button(self, borderwidth=5, padx=16, text=settings.languageList[29][settings.language], command=self.reset, bg="red")
-        self.reset_button.config(font=("Times", 60, 'bold'))
+        self.reset_button.config(font=("Arial", 55, 'bold'))
         self.reset_button.grid(sticky=W, row=3, column=2, pady=40, padx=10)
 
         if(settings.test_number > 1):
             self.previous_results = Button(self, text=settings.languageList[5][settings.language], fg="blue", relief="flat", command=lambda: controller.show_frame("PreviousGraphPage"))
-            self.previous_results.config(font=("Times", 60, "italic"))
+            self.previous_results.config(font=("Arial", 55, "italic"))
             self.previous_results.grid(sticky=W, row=4, column=0, padx=10)
         
         self.quit = Button(self, text=settings.languageList[6][settings.language], fg="blue", relief="flat", command=self.quit)
-        self.quit.config(font=("Times", 60, "italic"))
+        self.quit.config(font=("Arial", 55, "italic"))
         self.quit.grid(sticky=W, row=5, column=0, padx=10)
         
         self.EN_button = Radiobutton(self, text="EN", indicatoron = 0, value=0, command=self.setEnglish)
-        self.EN_button.config(bd=5, relief='raised', font=("Times", 60, 'bold'))
+        self.EN_button.config(bd=5, relief='raised', font=("Arial", 55, 'bold'))
         self.EN_button.grid(sticky=E, row=4, column=2, padx=10)
         
         self.FR_button = Radiobutton(self, text="FR", indicatoron = 0, value=1, command=self.setFrench)
-        self.FR_button.config(bd=5, relief='raised', font=("Times", 60, 'bold'))
+        self.FR_button.config(bd=5, relief='raised', font=("Arial", 55, 'bold'))
         self.FR_button.grid(sticky=E, row=5, column=2, padx=10)
 
     def getStatus(self):
@@ -90,22 +90,22 @@ class StartPage(tk.Frame):
             self.win.wm_title(settings.languageList[21][settings.language])
 
             idLabelTitle = Label(self.win, text=settings.languageList[22][settings.language])
-            idLabelTitle.config(font=("Times", 50, 'bold'))
+            idLabelTitle.config(font=("Arial", 45, 'bold'))
             idLabelTitle.grid(row=0, columnspan=2)
             
             idLabel = Label(self.win, text=settings.languageList[23][settings.language])
-            idLabel.config(font=("Times", 50))
+            idLabel.config(font=("Arial", 45))
             idLabel.grid(sticky=E, row=1, column=0, padx=20, pady=50)
 
-            self.e1 = Entry(self.win, font=("Times", 50))
+            self.e1 = Entry(self.win, font=("Arial", 45))
             self.e1.grid(sticky=E, row=1, column=1)
 
             quitButton = Button(self.win, borderwidth=5, text=settings.languageList[25][settings.language], command=self.win.destroy, bg="red")
-            quitButton.config(font=("Times", 50))
+            quitButton.config(font=("Arial", 45))
             quitButton.grid(row=2, column=0, sticky=W, pady=10, padx=20)
             
             submitButton = Button(self.win, borderwidth=5, text=settings.languageList[24][settings.language], command=self.submit, bg='green')
-            submitButton.config(font=("Times", 50))
+            submitButton.config(font=("Arial", 45))
             submitButton.grid(row=2, column=1, sticky=E, pady=10, padx=20)
         else:
             resultByIDDao.ResultByIDDao.setNewRow()
@@ -154,16 +154,16 @@ class StartPage(tk.Frame):
     def errorMessage(self, message):
         win = tk.Toplevel()
         win.config(bd=5, relief='raised')
-        win.geometry("680x250")
+        win.geometry("700x250")
         misc.center(win)
         win.wm_title(settings.languageList[26][settings.language])
 
         errorLabel = Label(win, text=message)
-        errorLabel.config(font=("Times", 50, 'bold'))
+        errorLabel.config(font=("Arial", 45, 'bold'))
         errorLabel.grid(sticky=E+W, row=0, column=0, padx=10, pady=10)
         
         errorButton = Button(win, borderwidth=5, text=settings.languageList[25][settings.language], command=win.destroy, bg='red')
-        errorButton.config(font=("Times", 50))
+        errorButton.config(font=("Arial", 45))
         errorButton.grid(row=1, column=0, sticky=W, pady=20, padx=10)
         
     def returning(self):

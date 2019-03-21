@@ -21,15 +21,15 @@ class PreviousGraphPage(tk.Frame):
         self.plotGraph()
         self.status = self.getStatus()
         self.progress_label = Label(self, text=settings.languageList[1][settings.language] + ' ' + self.status)
-        self.progress_label.config(font=("Times", 50))
+        self.progress_label.config(font=("Arial", 45))
         self.progress_label.grid(sticky=W, row=1, column=0, columnspan=2, pady=5, padx=10)
 
         self.returnButton = Button(self, text=settings.languageList[8][settings.language], fg="blue", relief="flat", command=lambda: controller.show_frame("StartPage"))
-        self.returnButton.config(font=("Times", 50))
+        self.returnButton.config(font=("Arial", 45))
         self.returnButton.grid(sticky=W, row=2, column=0, pady=10)
 
         self.csvButton = Button(self, borderwidth=5, text=settings.languageList[9][settings.language], command=self.csvExport, bg="green")
-        self.csvButton.config(font=("Times", 50))
+        self.csvButton.config(font=("Arial", 45))
         self.csvButton.grid(sticky=E, row=2, column=1, pady=5, padx=10)
 
     def plotGraph(self):

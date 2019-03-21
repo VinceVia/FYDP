@@ -94,30 +94,15 @@ class PreviousGraphPage(tk.Frame):
 
                 break
             detailed_id += 1
-        self.createPopup(message)
+        misc.createPopup(message)
 
     def getFailurePoints(self):
         times_overheated = detailedResultsDao.DetailedResultsDao.get_times_overheated(settings.test_number - 1)
         self.markers_on = times_overheated
 
-    def createPopup(self, message):
-        win = tk.Toplevel()
-        win.config(bd=5, relief='raised')
-        win.geometry("750x350")
-        misc.center(win)
-        win.wm_title(settings.languageList[31][settings.language])
-
-        errorLabel = Label(win, text=message, justify=LEFT)
-        errorLabel.config(font=("Arial", 40))
-        errorLabel.grid(sticky=E, row=0, column=0, padx=10, pady=10)
-        
-        errorButton = Button(win, borderwidth=5, text=settings.languageList[25][settings.language], command=win.destroy, bg='red')
-        errorButton.config(font=("Arial", 45))
-        errorButton.grid(row=1, column=0, sticky=W, pady=20, padx=10)
-
     def csvExport(self):
         misc.csvExport()
-        self.createPopup(settings.languageList[32][settings.language])
+        misc.createPopup(settings.languageList[32][settings.language])
 
     def setEnglish(self):
         settings.language = 1

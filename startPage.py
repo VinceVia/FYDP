@@ -82,30 +82,30 @@ class StartPage(tk.Frame):
             self.win.config(bd=5, relief='raised')
 
             if(settings.language==2):
-                self.win.geometry("550x300")
+                self.win.geometry("600x300")
             else:
-                self.win.geometry("550x300")
+                self.win.geometry("500x300")
 
             misc.center(self.win)
             self.win.wm_title(settings.languageList[21][settings.language])
 
             idLabelTitle = Label(self.win, text=settings.languageList[22][settings.language])
-            idLabelTitle.config(font=("Arial", 20, 'bold'))
+            idLabelTitle.config(font=("Arial", 18, 'bold'))
             idLabelTitle.grid(row=0, columnspan=2)
             
             idLabel = Label(self.win, text=settings.languageList[23][settings.language])
-            idLabel.config(font=("Arial", 20))
+            idLabel.config(font=("Arial", 18))
             idLabel.grid(sticky=E, row=1, column=0, padx=10, pady=20)
 
-            self.e1 = Entry(self.win, font=("Arial", 20))
+            self.e1 = Entry(self.win, font=("Arial", 18))
             self.e1.grid(sticky=E, row=1, column=1)
 
             quitButton = Button(self.win, borderwidth=5, text=settings.languageList[25][settings.language], command=self.win.destroy, bg="red")
-            quitButton.config(font=("Arial", 20))
+            quitButton.config(font=("Arial", 18))
             quitButton.grid(row=2, column=0, sticky=W, pady=5, padx=10)
             
             submitButton = Button(self.win, borderwidth=5, text=settings.languageList[24][settings.language], command=self.submit, bg='green')
-            submitButton.config(font=("Arial", 20))
+            submitButton.config(font=("Arial", 18))
             submitButton.grid(row=2, column=1, sticky=E, pady=5, padx=10)
         else:
             resultByIDDao.ResultByIDDao.setNewRow()

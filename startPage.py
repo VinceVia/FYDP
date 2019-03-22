@@ -154,7 +154,7 @@ class StartPage(tk.Frame):
     def errorMessage(self, message):
         win = tk.Toplevel()
         win.config(bd=5, relief='raised')
-        win.geometry("400x250")
+        win.geometry("400x150")
         misc.center(win)
         win.wm_title(settings.languageList[26][settings.language])
 

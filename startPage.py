@@ -95,7 +95,7 @@ class StartPage(tk.Frame):
             
             idLabel = Label(self.win, text=settings.languageList[23][settings.language])
             idLabel.config(font=("Arial", 17))
-            idLabel.grid(sticky=E, row=1, column=0, padx=10, pady=30)
+            idLabel.grid(sticky=E, row=1, column=0, padx=10, pady=50)
 
             self.e1 = Entry(self.win, font=("Arial", 18))
             self.e1.grid(sticky=E, row=1, column=1)

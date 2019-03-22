@@ -16,7 +16,7 @@ class StartPage(tk.Frame):
         self.controller = controller
 
         self.label = Label(self, text=settings.languageList[0][settings.language])
-        self.label.config(font=("Arial", 30, 'bold'))
+        self.label.config(font=("Arial", 20, 'bold'))
         self.label.grid(row=0, columnspan=3, padx=5, pady=10)
         
         self.status = self.getStatus()
@@ -29,15 +29,15 @@ class StartPage(tk.Frame):
         self.results_link.grid(row=2, columnspan=3)
 
         self.start_button = Button(self, borderwidth=5, padx=16, text=settings.languageList[3][settings.language], command=self.start, bg="green")
-        self.start_button.config(font=("Arial", 20, 'bold'))
-        self.start_button.grid(sticky=W, row=3, column=0, padx=10, pady=10)
+        self.start_button.config(font=("Arial", 15, 'bold'))
+        self.start_button.grid(sticky=W, row=3, column=0, padx=5, pady=10)
 
         self.stop_button = Button(self, borderwidth=5, padx=16, text=settings.languageList[4][settings.language], command=self.stop, bg="red")
-        self.stop_button.config(font=("Arial", 20, 'bold'))
+        self.stop_button.config(font=("Arial", 15, 'bold'))
         self.stop_button.grid(sticky=E, row=3, column=1, pady=10)
 
         self.reset_button = Button(self, borderwidth=5, padx=16, text=settings.languageList[29][settings.language], command=self.reset, bg="red")
-        self.reset_button.config(font=("Arial", 20, 'bold'))
+        self.reset_button.config(font=("Arial", 15, 'bold'))
         self.reset_button.grid(sticky=W, row=3, column=2, pady=10, padx=5)
 
         if(settings.test_number > 1):

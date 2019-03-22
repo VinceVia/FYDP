@@ -34,7 +34,7 @@ class GraphPage(tk.Frame):
 
         self.csvButton = Button(self, borderwidth=5, text=settings.languageList[9][settings.language], command=self.csvExport, bg="green")
         self.csvButton.config(font=("Arial", 17))
-        self.csvButton.grid(sticky=E, row=2, column=1, pady=5, padx=10)
+        self.csvButton.grid(sticky=E, row=2, column=1, pady=5, padx=3)
 
     def getFailureInfo(self):
         graphFunctions.getFailureInfo(self, False)

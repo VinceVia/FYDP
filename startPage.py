@@ -21,11 +21,11 @@ class StartPage(tk.Frame):
         
         self.status = self.getStatus()
         self.progress_label = Label(self, text=settings.languageList[1][settings.language] + ' ' + self.getStatus())
-        self.progress_label.config(font=("Arial", 15))
+        self.progress_label.config(font=("Arial", 20))
         self.progress_label.grid(row=1, columnspan=3, pady=5)
         
         self.results_link = Button(self, text=settings.languageList[2][settings.language], fg="blue", relief="flat", command=lambda: controller.show_frame("GraphPage"))
-        self.results_link.config(font=("Arial", 15, "italic"))
+        self.results_link.config(font=("Arial", 20, "italic"))
         self.results_link.grid(row=2, columnspan=3)
 
         self.start_button = Button(self, borderwidth=5, padx=16, text=settings.languageList[3][settings.language], command=self.start, bg="green")
@@ -42,7 +42,7 @@ class StartPage(tk.Frame):
 
         if(settings.test_number > 1):
             self.previous_results = Button(self, text=settings.languageList[5][settings.language], fg="blue", relief="flat", command=lambda: controller.show_frame("PreviousGraphPage"))
-            self.previous_results.config(font=("Arial", 15, "italic"))
+            self.previous_results.config(font=("Arial", 20, "italic"))
             self.previous_results.grid(sticky=W, row=4, column=0, padx=5)
         
         self.quit = Button(self, text=settings.languageList[6][settings.language], fg="blue", relief="flat", command=self.quit)

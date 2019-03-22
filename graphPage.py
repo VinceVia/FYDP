@@ -30,7 +30,7 @@ class GraphPage(tk.Frame):
 
         self.returnButton = Button(self, text=settings.languageList[8][settings.language], fg="blue", relief="flat", command=lambda: controller.show_frame("StartPage"))
         self.returnButton.config(font=("Arial", 17))
-        self.returnButton.grid(sticky=W, row=2, column=0, pady=10)
+        self.returnButton.grid(sticky=W, row=2, column=0, pady=5)
 
         self.csvButton = Button(self, borderwidth=5, text=settings.languageList[9][settings.language], command=self.csvExport, bg="green")
         self.csvButton.config(font=("Arial", 17))

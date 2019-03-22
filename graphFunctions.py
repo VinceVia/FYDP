@@ -65,9 +65,10 @@ def getFailureInfo(self, isPrevious):
 
     message = settings.languageList[40][settings.language] + ' '
     failure_mode = resultByIDDao.ResultByIDDao.get_failure_mode(test_number)[0]
+    detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_id(test_number)[0]
+
     if(failure_mode == 1): #overheat
         overheat_vals = detailedResultsDao.DetailedResultsDao.get_overheat(test_number)
-        detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_id(test_number)[0]
         for val in overheat_vals:
             if(val>0):
                 test_section=detailedResultsDao.DetailedResultsDao.get_test_section_by_id(detailed_id)[0]
@@ -77,55 +78,61 @@ def getFailureInfo(self, isPrevious):
                 message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[36][settings.language] 
                 + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
                 + ' ' + str(velocity) +' m/s ')
+                misc.createPopup(message)
                 break
             detailed_id += 1
+
     elif(failure_mode == 2): #Air Leak or Device Activation
-        print("not ready yet")
-        # overheat_vals = detailedResultsDao.DetailedResultsDao.get_overheat(test_number)
-        # detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_id(test_number)[0]
-        # for val in overheat_vals:
-        #     if(val>0):
-        #         test_section=detailedResultsDao.DetailedResultsDao.get_test_section_by_id(detailed_id)[0]
-        #         time = detailedResultsDao.DetailedResultsDao.get_time_by_id(detailed_id)[0]
-        #         velocity = detailedResultsDao.DetailedResultsDao.get_velocity_by_id(detailed_id)[0]
+        errorFound = False
+        sectionList = ['1A', '1B', '4A', '4B']
 
-        #         message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[36][settings.language] 
-        #         + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
-        #         + ' ' + str(velocity) +' m/s ')
-        #         break
-        #     detailed_id += 1
+        for test_section in sectionList:
+            detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_section(test_number, test_section)[0]
+            errorFound = findPressureError(detailed_id, test_section, test_number, message)
+            if(errorFound):
+                break;
+
     elif(failure_mode == 3): #Failure to Exhaust Air
-        print("Failed to Exhaust")
-        # overheat_vals = detailedResultsDao.DetailedResultsDao.get_overheat(test_number)
-        # detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_id(test_number)[0]
-        # for val in overheat_vals:
-        #     if(val>0):
-        #         test_section=detailedResultsDao.DetailedResultsDao.get_test_section_by_id(detailed_id)[0]
-        #         time = detailedResultsDao.DetailedResultsDao.get_time_by_id(detailed_id)[0]
-        #         velocity = detailedResultsDao.DetailedResultsDao.get_velocity_by_id(detailed_id)[0]
+        sectionList = ['2A', '2B', '3A', '3B']
 
-        #         message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[36][settings.language] 
-        #         + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
-        #         + ' ' + str(velocity) +' m/s ')
-        #         break
-        #     detailed_id += 1
-    elif(failure_mode == 4): #Exhausting Too Long (>1 s)
-        print("Exhausting too long")
-        # overheat_vals = detailedResultsDao.DetailedResultsDao.get_overheat(test_number)
-        # detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_id(test_number)[0]
-        # for val in overheat_vals:
-        #     if(val>0):
-        #         test_section=detailedResultsDao.DetailedResultsDao.get_test_section_by_id(detailed_id)[0]
-        #         time = detailedResultsDao.DetailedResultsDao.get_time_by_id(detailed_id)[0]
-        #         velocity = detailedResultsDao.DetailedResultsDao.get_velocity_by_id(detailed_id)[0]
+        for test_section in sectionList:
+            detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_section(test_number, test_section)[0]
+            errorFound = findNoExhaustError(detailed_id, test_section, test_number, message)
+            if(errorFound):
+                break;
 
-        #         message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[36][settings.language] 
-        #         + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
-        #         + ' ' + str(velocity) +' m/s ')
-        #         break
-        #     detailed_id += 1
+    elif(failure_mode == 4): #Failure to Exhaust Air
+        sectionList = ['2A', '2B', '3A', '3B']
 
-    misc.createPopup(message)
+        for test_section in sectionList:
+            detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_section(test_number, test_section)[0]
+            errorFound = findOverExhaustError(detailed_id, test_section, test_number, message)
+            if(errorFound):
+                break;
+
+def findPressureError(detailed_id, test_section, test_number, message):
+    retval = False
+    pressure_vals = detailedResultsDao.DetailedResultsDao.get_pressure_by_test_section(test_number, test_section)
+    for pressure in pressure_vals:
+        if(pressure>0):
+            time = detailedResultsDao.DetailedResultsDao.get_time_by_id(detailed_id)[0]
+            velocity = detailedResultsDao.DetailedResultsDao.get_velocity_by_id(detailed_id)[0]
+
+            message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[37][settings.language] 
+            + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
+            + ' ' + str(velocity) +' m/s ')
+            misc.createPopup(message)
+            retval=True
+            break
+        detailed_id +=1
+    return retval
+
+#NOT SURE HOW TO DO THESE YET
+def findNoExhaustError(detailed_id, test_section, test_number, message):
+    retval = False
+
+def findOverExhaustError(detailed_id, test_section, test_number, message):
+    retval = False
 
 def getFailurePoints(self, isPrevious):
     if(isPrevious):
@@ -138,7 +145,8 @@ def getFailurePoints(self, isPrevious):
         times_overheated = detailedResultsDao.DetailedResultsDao.get_times_overheated(test_number)
         self.markers_on = times_overheated
     elif(failure_mode == 2): #Air Leak or Device Activation
-        print("Air Leak")
+        times_activated = detailedResultsDao.DetailedResultsDao.get_times_activated(test_number)
+        self.markers_on = times_activated
     elif(failure_mode == 3): #Failure to Exhaust Air
         print("Failed to Exhaust")
     elif(failure_mode == 4): #Exhausting Too Long (>1 s)

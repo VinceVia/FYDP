@@ -82,9 +82,9 @@ class StartPage(tk.Frame):
             self.win.config(bd=5, relief='raised')
 
             if(settings.language==2):
-                self.win.geometry("400x300")
+                self.win.geometry("550x300")
             else:
-                self.win.geometry("400x300")
+                self.win.geometry("550x300")
 
             misc.center(self.win)
             self.win.wm_title(settings.languageList[21][settings.language])

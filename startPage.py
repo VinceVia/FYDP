@@ -84,7 +84,7 @@ class StartPage(tk.Frame):
             if(settings.language==2):
                 self.win.geometry("600x250")
             else:
-                self.win.geometry("500x250")
+                self.win.geometry("400x250")
 
             misc.center(self.win)
             self.win.wm_title(settings.languageList[21][settings.language])

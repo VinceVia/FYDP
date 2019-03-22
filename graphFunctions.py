@@ -30,7 +30,7 @@ def plotGraph(self, isPrevious):
             }
     df = DataFrame(Data)
 
-    figure = plt.Figure(figsize=(12,4.5), dpi=60)
+    figure = plt.Figure(figsize=(12,4.5), dpi=150)
     ax = figure.add_subplot(111)
     ax.set_title(settings.languageList[10][settings.language], fontweight="bold", fontsize=16)
     ax.set_xlabel(settings.languageList[12][settings.language])
@@ -64,8 +64,7 @@ def getFailureInfo(self, isPrevious):
         test_number = settings.test_number
 
     message = settings.languageList[40][settings.language] + ' '
-    #failure_mode = resultByIDDao.ResultByIDDao.get_failure_mode(test_number)[0]
-    failure_mode = 2
+    failure_mode = resultByIDDao.ResultByIDDao.get_failure_mode(test_number)[0]
     detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_id(test_number)[0]
 
     if(failure_mode == 1): #overheat
@@ -79,6 +78,7 @@ def getFailureInfo(self, isPrevious):
                 message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[36][settings.language] 
                 + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
                 + ' ' + str(velocity) +' m/s ')
+                misc.createPopup(message)
                 break
             detailed_id += 1
 
@@ -92,6 +92,23 @@ def getFailureInfo(self, isPrevious):
             if(errorFound):
                 break;
 
+    elif(failure_mode == 3): #Failure to Exhaust Air
+        sectionList = ['2A', '2B', '3A', '3B']
+
+        for test_section in sectionList:
+            detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_section(test_number, test_section)[0]
+            errorFound = findNoExhaustError(detailed_id, test_section, test_number, message)
+            if(errorFound):
+                break;
+
+    elif(failure_mode == 4): #Failure to Exhaust Air
+        sectionList = ['2A', '2B', '3A', '3B']
+
+        for test_section in sectionList:
+            detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_section(test_number, test_section)[0]
+            errorFound = findOverExhaustError(detailed_id, test_section, test_number, message)
+            if(errorFound):
+                break;
 
 def findPressureError(detailed_id, test_section, test_number, message):
     retval = False
@@ -109,7 +126,13 @@ def findPressureError(detailed_id, test_section, test_number, message):
             break
         detailed_id +=1
     return retval
-    
+
+#NOT SURE HOW TO DO THESE YET
+def findNoExhaustError(detailed_id, test_section, test_number, message):
+    retval = False
+
+def findOverExhaustError(detailed_id, test_section, test_number, message):
+    retval = False
 
 def getFailurePoints(self, isPrevious):
     if(isPrevious):
@@ -117,8 +140,7 @@ def getFailurePoints(self, isPrevious):
     else:
         test_number = settings.test_number
 
-    #failure_mode = resultByIDDao.ResultByIDDao.get_failure_mode(test_number)[0]
-    failure_mode = 2
+    failure_mode = resultByIDDao.ResultByIDDao.get_failure_mode(test_number)[0]
     if(failure_mode == 1): #overheat
         times_overheated = detailedResultsDao.DetailedResultsDao.get_times_overheated(test_number)
         self.markers_on = times_overheated

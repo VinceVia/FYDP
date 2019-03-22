@@ -30,7 +30,7 @@ def plotGraph(self, isPrevious):
             }
     df = DataFrame(Data)
 
-    figure = plt.Figure(figsize=(6.5,5.5), dpi=60)
+    figure = plt.Figure(figsize=(6.8,5.5), dpi=60)
     ax = figure.add_subplot(111)
     ax.set_title(settings.languageList[10][settings.language], fontweight="bold", fontsize=16)
     ax.set_xlabel(settings.languageList[12][settings.language])

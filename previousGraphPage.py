@@ -26,7 +26,7 @@ class PreviousGraphPage(tk.Frame):
         if(self.machine_status == 3):
             self.infoButton = Button(self, borderwidth=5, text=settings.languageList[30][settings.language], command=self.getFailureInfo, bg="grey")
             self.infoButton.config(font=("Arial", 17))
-            self.infoButton.grid(sticky=E, row=1, column=1, pady=5, padx=3)
+            self.infoButton.grid(sticky=E, row=1, column=1, pady=5)
 
         self.returnButton = Button(self, text=settings.languageList[8][settings.language], fg="blue", relief="flat", command=lambda: controller.show_frame("StartPage"))
         self.returnButton.config(font=("Arial", 17))
@@ -34,7 +34,7 @@ class PreviousGraphPage(tk.Frame):
 
         self.csvButton = Button(self, borderwidth=5, text=settings.languageList[9][settings.language], command=self.csvExport, bg="green")
         self.csvButton.config(font=("Arial", 17))
-        self.csvButton.grid(sticky=E, row=2, column=1, pady=5, padx=3)
+        self.csvButton.grid(sticky=E, row=2, column=1, pady=5)
 
     def getFailureInfo(self):
         graphFunctions.getFailureInfo(self, True)

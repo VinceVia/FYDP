@@ -34,14 +34,14 @@ def csvExport():
 def createPopup(message):
     win = tk.Toplevel()
     win.config(bd=5, relief='raised')
-    win.geometry("1000x400")
+    win.geometry("600x300")
     center(win)
     win.wm_title(settings.languageList[31][settings.language])
 
     errorLabel = Label(win, text=message, justify=LEFT)
-    errorLabel.config(font=("Arial", 40))
-    errorLabel.grid(sticky=E, row=0, column=0, padx=10, pady=10)
+    errorLabel.config(font=("Arial", 20))
+    errorLabel.grid(sticky=E, row=0, column=0, padx=5, pady=10)
     
     errorButton = Button(win, borderwidth=5, text=settings.languageList[25][settings.language], command=win.destroy, bg='red')
-    errorButton.config(font=("Arial", 45))
-    errorButton.grid(row=1, column=0, sticky=W, pady=20, padx=10)
+    errorButton.config(font=("Arial", 20))
+    errorButton.grid(row=1, column=0, sticky=W, pady=20, padx=5)

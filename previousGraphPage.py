@@ -20,21 +20,21 @@ class PreviousGraphPage(tk.Frame):
         graphFunctions.plotGraph(self, True)
 
         self.progress_label = Label(self, text=settings.languageList[1][settings.language] + ' ' + self.status)
-        self.progress_label.config(font=("Arial", 45))
+        self.progress_label.config(font=("Arial", 17))
         self.progress_label.grid(sticky=W, row=1, column=0, columnspan=2, pady=5, padx=10)
 
         if(self.machine_status == 3):
             self.infoButton = Button(self, borderwidth=5, text=settings.languageList[30][settings.language], command=self.getFailureInfo, bg="grey")
-            self.infoButton.config(font=("Arial", 40))
-            self.infoButton.grid(sticky=E, row=1, column=1, pady=5, padx=10)
+            self.infoButton.config(font=("Arial", 17))
+            self.infoButton.grid(sticky=E, row=1, column=1, pady=5, padx=3)
 
         self.returnButton = Button(self, text=settings.languageList[8][settings.language], fg="blue", relief="flat", command=lambda: controller.show_frame("StartPage"))
-        self.returnButton.config(font=("Arial", 45))
+        self.returnButton.config(font=("Arial", 17))
         self.returnButton.grid(sticky=W, row=2, column=0, pady=10)
 
         self.csvButton = Button(self, borderwidth=5, text=settings.languageList[9][settings.language], command=self.csvExport, bg="green")
-        self.csvButton.config(font=("Arial", 45))
-        self.csvButton.grid(sticky=E, row=2, column=1, pady=5, padx=10)
+        self.csvButton.config(font=("Arial", 17))
+        self.csvButton.grid(sticky=E, row=2, column=1, pady=5, padx=3)
 
     def getFailureInfo(self):
         graphFunctions.getFailureInfo(self, True)

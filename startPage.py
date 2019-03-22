@@ -16,7 +16,7 @@ class StartPage(tk.Frame):
         self.controller = controller
 
         self.label = Label(self, text=settings.languageList[0][settings.language])
-        self.label.config(font=("Arial", 80, 'bold'))
+        self.label.config(font=("Arial", 40, 'bold'))
         self.label.grid(row=0, columnspan=3, padx=10, pady=20)
         
         self.status = self.getStatus()

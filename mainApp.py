@@ -10,7 +10,7 @@ class MainApp(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
-        container = tk.Frame(self, width=650, height=500)
+        container = tk.Frame(self, width=640, height=500)
         container.pack(side="top", expand=False)
         container.pack_propagate(0)
         container.grid_rowconfigure(0, weight=1)

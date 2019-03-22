@@ -50,11 +50,11 @@ class StartPage(tk.Frame):
         self.quit.grid(sticky=W, row=5, column=0, padx=5)
         
         self.EN_button = Radiobutton(self, text="EN", indicatoron = 0, value=0, command=self.setEnglish)
-        self.EN_button.config(bd=5, relief='raised', font=("Arial", 25, 'bold'))
+        self.EN_button.config(bd=5, relief='raised', font=("Arial", 20, 'bold'))
         self.EN_button.grid(sticky=E, row=4, column=2, padx=5)
         
         self.FR_button = Radiobutton(self, text="FR", indicatoron = 0, value=1, command=self.setFrench)
-        self.FR_button.config(bd=5, relief='raised', font=("Arial", 25, 'bold'))
+        self.FR_button.config(bd=5, relief='raised', font=("Arial", 20, 'bold'))
         self.FR_button.grid(sticky=E, row=5, column=2, padx=5)
 
     def getStatus(self):

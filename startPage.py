@@ -71,7 +71,7 @@ class StartPage(tk.Frame):
     def start(self):
         machine_status = resultByIDDao.ResultByIDDao.get_test_status(settings.test_number)[0]
         if(machine_status == 1):
-            self.errorMessage(settings.languageList[27][settings.language])
+            self.errorMessage(settings.languageList[27][settings.language], "310x100")
         elif(machine_status == 2):
             resultByIDDao.ResultByIDDao.setTestStatus(1) #In Progress
             self.status = self.getStatus()
@@ -128,13 +128,13 @@ class StartPage(tk.Frame):
     def stop(self):
         machine_status = resultByIDDao.ResultByIDDao.get_test_status(settings.test_number)[0]
         if(machine_status == 0 or machine_status == 3 or machine_status == 4):
-            self.errorMessage(settings.languageList[20][settings.language])
+            self.errorMessage(settings.languageList[20][settings.language], "310x100")
         elif(machine_status == 1):
             resultByIDDao.ResultByIDDao.setTestStatus(2)
             self.status = self.getStatus()
             self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
         else:
-            self.errorMessage(settings.languageList[28][settings.language])
+            self.errorMessage(settings.languageList[28][settings.language], "310x100")
         #motor stuff here
 
     def reset(self):
@@ -144,17 +144,17 @@ class StartPage(tk.Frame):
             self.status = self.getStatus()
             self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status) 
         elif(machine_status == 0):
-            self.errorMessage(settings.languageList[13][settings.language] + '!')
+            self.errorMessage(settings.languageList[13][settings.language] + '!', "260x100")
         else:
             resultByIDDao.ResultByIDDao.setNewRow()
             settings.test_number += 1
             self.status = self.getStatus()
             self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
 
-    def errorMessage(self, message):
+    def errorMessage(self, message, geometry):
         win = tk.Toplevel()
         win.config(bd=5, relief='raised')
-        win.geometry("400x150")
+        win.geometry(geometry)
         misc.center(win)
         win.wm_title(settings.languageList[26][settings.language])
 
@@ -164,7 +164,7 @@ class StartPage(tk.Frame):
         
         errorButton = Button(win, borderwidth=5, text=settings.languageList[25][settings.language], command=win.destroy, bg='red')
         errorButton.config(font=("Arial", 20))
-        errorButton.grid(row=1, column=0, sticky=W, pady=10, padx=5)
+        errorButton.grid(row=1, column=0, sticky=E, pady=10, padx=5)
         
     def returning(self):
         print("Returning!")

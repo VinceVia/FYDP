@@ -78,7 +78,7 @@ def getFailureInfo(self, isPrevious):
                 message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[36][settings.language] 
                 + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
                 + ' ' + str(velocity) +' m/s ')
-                misc.createPopup(message)
+                misc.createPopup(message, "600x300")
                 break
             detailed_id += 1
 
@@ -121,7 +121,7 @@ def findPressureError(detailed_id, test_section, test_number, message):
             message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[37][settings.language] 
             + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
             + ' ' + str(velocity) +' m/s ')
-            misc.createPopup(message)
+            misc.createPopup(message, "600x300")
             retval=True
             break
         detailed_id +=1

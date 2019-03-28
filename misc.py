@@ -31,10 +31,10 @@ def csvExport():
     writer.writerows(resultByIDData)
     f.close()
 
-def createPopup(message):
+def createPopup(message, geometry):
     win = tk.Toplevel()
     win.config(bd=5, relief='raised')
-    win.geometry("600x300")
+    win.geometry(geometry)
     center(win)
     win.wm_title(settings.languageList[31][settings.language])
 
@@ -44,5 +44,5 @@ def createPopup(message):
     
     errorButton = Button(win, borderwidth=5, text=settings.languageList[25][settings.language], command=win.destroy, bg='red')
     errorButton.config(font=("Arial", 20))
-    errorButton.grid(row=1, column=0, sticky=W, pady=20, padx=5)
+    errorButton.grid(row=1, column=0, sticky=E, pady=20, padx=5)
  

@@ -41,7 +41,7 @@ class PreviousGraphPage(tk.Frame):
 
     def csvExport(self):
         misc.csvExport()
-        misc.createPopup(settings.languageList[32][settings.language])
+        misc.createPopup(settings.languageList[32][settings.language], "150x120")
 
     def setEnglish(self):
         settings.language = 1

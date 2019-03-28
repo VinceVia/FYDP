@@ -16,46 +16,46 @@ class StartPage(tk.Frame):
         self.controller = controller
 
         self.label = Label(self, text=settings.languageList[0][settings.language])
-        self.label.config(font=("Arial", 30, 'bold'))
-        self.label.grid(row=0, columnspan=3, pady=10)
+        self.label.config(font=("Arial", 32, 'bold'))
+        self.label.grid(row=0, columnspan=3, pady=10, ipady=15)
         
         self.status = self.getStatus()
         self.progress_label = Label(self, text=settings.languageList[1][settings.language] + ' ' + self.getStatus())
-        self.progress_label.config(font=("Arial", 20))
+        self.progress_label.config(font=("Arial", 23))
         self.progress_label.grid(row=1, columnspan=3, pady=5)
         
         self.results_link = Button(self, text=settings.languageList[2][settings.language], fg="blue", relief="flat", command=lambda: controller.show_frame("GraphPage"))
-        self.results_link.config(font=("Arial", 20, "italic"))
+        self.results_link.config(font=("Arial", 23, "italic"))
         self.results_link.grid(row=2, columnspan=3)
 
         self.start_button = Button(self, borderwidth=5, padx=16, text=settings.languageList[3][settings.language], command=self.start, bg="green")
-        self.start_button.config(font=("Arial", 13, 'bold'))
-        self.start_button.grid(sticky=W, row=3, column=0, padx=5, pady=50, ipady=15)
+        self.start_button.config(font=("Arial", 17, 'bold'))
+        self.start_button.grid(sticky=W, row=3, column=0, pady=80, ipady=15)
 
         self.stop_button = Button(self, borderwidth=5, padx=16, text=settings.languageList[4][settings.language], command=self.stop, bg="red")
-        self.stop_button.config(font=("Arial", 13, 'bold'))
-        self.stop_button.grid(sticky=E, row=3, column=1, pady=50, ipady=15)
+        self.stop_button.config(font=("Arial", 17, 'bold'))
+        self.stop_button.grid(sticky=E, row=3, column=1, pady=80, ipady=15)
 
         self.reset_button = Button(self, borderwidth=5, padx=16, text=settings.languageList[29][settings.language], command=self.reset, bg="red")
-        self.reset_button.config(font=("Arial", 13, 'bold'))
-        self.reset_button.grid(sticky=W, row=3, column=2, pady=50, padx=5, ipady=15)
+        self.reset_button.config(font=("Arial", 17, 'bold'))
+        self.reset_button.grid(sticky=W, row=3, column=2, pady=80, ipady=15)
 
         if(settings.test_number > 1):
             self.previous_results = Button(self, text=settings.languageList[5][settings.language], fg="blue", relief="flat", command=lambda: controller.show_frame("PreviousGraphPage"))
-            self.previous_results.config(font=("Arial", 20, "italic"))
-            self.previous_results.grid(sticky=W, row=4, column=0, padx=5)
+            self.previous_results.config(font=("Arial", 21, "italic"))
+            self.previous_results.grid(sticky=W, row=4, column=0)
         
         self.quit = Button(self, text=settings.languageList[6][settings.language], fg="blue", relief="flat", command=self.quit)
-        self.quit.config(font=("Arial", 20, "italic"))
-        self.quit.grid(sticky=W, row=5, column=0, padx=5)
+        self.quit.config(font=("Arial", 21, "italic"))
+        self.quit.grid(sticky=W, row=5, column=0, ipady=10)
         
         self.EN_button = Radiobutton(self, text="EN", indicatoron = 0, value=0, command=self.setEnglish)
         self.EN_button.config(bd=5, relief='raised', font=("Arial", 20, 'bold'))
-        self.EN_button.grid(sticky=E, row=4, column=2, padx=5)
+        self.EN_button.grid(sticky=E, row=4, column=2, padx=1)
         
         self.FR_button = Radiobutton(self, text="FR", indicatoron = 0, value=1, command=self.setFrench)
         self.FR_button.config(bd=5, relief='raised', font=("Arial", 20, 'bold'))
-        self.FR_button.grid(sticky=E, row=5, column=2, padx=5)
+        self.FR_button.grid(sticky=E, row=5, column=2, padx=1)
 
     def getStatus(self):
         switcher = { 
@@ -101,12 +101,12 @@ class StartPage(tk.Frame):
             self.e1.grid(sticky=E, row=1, column=1)
 
             quitButton = Button(self.win, borderwidth=5, text=settings.languageList[25][settings.language], command=self.win.destroy, bg="red")
-            quitButton.config(font=("Arial", 17))
-            quitButton.grid(row=2, column=0, sticky=W, pady=5, padx=10)
+            quitButton.config(font=("Arial", 20))
+            quitButton.grid(row=2, column=1, sticky=E, pady=5, padx=10)
             
             submitButton = Button(self.win, borderwidth=5, text=settings.languageList[24][settings.language], command=self.submit, bg='green')
-            submitButton.config(font=("Arial", 17))
-            submitButton.grid(row=2, column=1, sticky=E, pady=5, padx=10)
+            submitButton.config(font=("Arial", 20))
+            submitButton.grid(row=2, column=0, sticky=W, pady=5, padx=10)
         else:
             resultByIDDao.ResultByIDDao.setNewRow()
             settings.test_number += 1

@@ -28,9 +28,9 @@ class StartPage(tk.Frame):
         self.results_link.config(font=("Arial", 23, "italic"))
         self.results_link.grid(row=2, columnspan=3)
 
-        self.start_button = Button(self, borderwidth=5, padx=16, text=settings.languageList[3][settings.language], command=self.start, bg="green")
+        self.start_button = Button(self, borderwidth=5, padx=16, text=settings.languageList[3][settings.language], command=self.start, bg="green3")
         self.start_button.config(font=("Arial", 17, 'bold'))
-        self.start_button.grid(sticky=W, row=3, column=0, pady=80, ipady=15)
+        self.start_button.grid(sticky=W, row=3, column=0, pady=80, padx=5, ipady=15)
 
         self.stop_button = Button(self, borderwidth=5, padx=16, text=settings.languageList[4][settings.language], command=self.stop, bg="red")
         self.stop_button.config(font=("Arial", 17, 'bold'))
@@ -51,11 +51,11 @@ class StartPage(tk.Frame):
         
         self.EN_button = Radiobutton(self, text="EN", indicatoron = 0, value=0, command=self.setEnglish)
         self.EN_button.config(bd=5, relief='raised', font=("Arial", 20, 'bold'))
-        self.EN_button.grid(sticky=E, row=4, column=2, padx=1)
+        self.EN_button.grid(sticky=E, row=4, column=2, padx=1, ipadx=12)
         
         self.FR_button = Radiobutton(self, text="FR", indicatoron = 0, value=1, command=self.setFrench)
         self.FR_button.config(bd=5, relief='raised', font=("Arial", 20, 'bold'))
-        self.FR_button.grid(sticky=E, row=5, column=2, padx=1)
+        self.FR_button.grid(sticky=E, row=5, column=2, padx=1, ipadx=12)
 
     def getStatus(self):
         switcher = { 
@@ -104,7 +104,7 @@ class StartPage(tk.Frame):
             quitButton.config(font=("Arial", 20))
             quitButton.grid(row=2, column=1, sticky=E, pady=5, padx=10)
             
-            submitButton = Button(self.win, borderwidth=5, text=settings.languageList[24][settings.language], command=self.submit, bg='green')
+            submitButton = Button(self.win, borderwidth=5,  text=settings.languageList[24][settings.language], command=self.submit, bg='green3')
             submitButton.config(font=("Arial", 20))
             submitButton.grid(row=2, column=0, sticky=W, pady=5, padx=10)
         else:

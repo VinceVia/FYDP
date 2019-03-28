@@ -45,3 +45,4 @@ def createPopup(message):
     errorButton = Button(win, borderwidth=5, text=settings.languageList[25][settings.language], command=win.destroy, bg='red')
     errorButton.config(font=("Arial", 20))
     errorButton.grid(row=1, column=0, sticky=W, pady=20, padx=5)
+ 

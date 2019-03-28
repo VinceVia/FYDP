@@ -30,14 +30,14 @@ def plotGraph(self, isPrevious):
             }
     df = DataFrame(Data)
 
-    figure = plt.Figure(figsize=(8,4.5), dpi=75)
+    figure = plt.Figure(figsize=(7,4.5), dpi=100)
     ax = figure.add_subplot(111)
     ax.set_title(settings.languageList[10][settings.language], fontweight="bold", fontsize=16)
     ax.set_xlabel(settings.languageList[12][settings.language])
     ax.set_ylabel(settings.languageList[11][settings.language])
     line = FigureCanvasTkAgg(figure, self)
     line.get_tk_widget().grid(sticky=E+W, row=0, columnspan=2)
-    ax2 = df.plot(kind='line', color='black', y='Velocity', ax=ax, legend=False, fontsize=11, marker='o', markevery=self.markers_on, 
+    ax2 = df.plot(kind='line', color='blue', y='Velocity', ax=ax, legend=False, fontsize=11, marker='o', markevery=self.markers_on, 
         markerfacecolor='red', markeredgecolor='red', markersize=10)
     ax2.grid()
 

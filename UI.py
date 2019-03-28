@@ -15,5 +15,6 @@ if __name__ == "__main__":
     settings.test_number = resultByIDDao.ResultByIDDao.get_test_number()[0]
     #settings.failure_mode = resultByIDDao.ResultByIDDao.get_failure_mode(settings.test_number)[0]
     app = mainApp.MainApp()
+    app.attributes("-fullscreen", True)
     misc.center(app)
     app.mainloop()

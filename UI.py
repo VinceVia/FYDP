@@ -6,7 +6,6 @@ from tkinter import *
 import settings
 import languageDao
 import resultByIDDao
-import misc
 
 if __name__ == "__main__":
     settings.init()
@@ -16,5 +15,4 @@ if __name__ == "__main__":
     #settings.failure_mode = resultByIDDao.ResultByIDDao.get_failure_mode(settings.test_number)[0]
     app = mainApp.MainApp()
     app.attributes("-fullscreen", True)
-    misc.center(app)
     app.mainloop()

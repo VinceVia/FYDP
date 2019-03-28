@@ -128,13 +128,13 @@ class StartPage(tk.Frame):
     def stop(self):
         machine_status = resultByIDDao.ResultByIDDao.get_test_status(settings.test_number)[0]
         if(machine_status == 0 or machine_status == 3 or machine_status == 4):
-            self.errorMessage(settings.languageList[20][settings.language], "310x100")
+            self.errorMessage(settings.languageList[20][settings.language], "390x150")
         elif(machine_status == 1):
             resultByIDDao.ResultByIDDao.setTestStatus(2)
             self.status = self.getStatus()
             self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
         else:
-            self.errorMessage(settings.languageList[28][settings.language], "310x100")
+            self.errorMessage(settings.languageList[28][settings.language], "390x150")
         #motor stuff here
 
     def reset(self):
@@ -144,7 +144,7 @@ class StartPage(tk.Frame):
             self.status = self.getStatus()
             self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status) 
         elif(machine_status == 0):
-            self.errorMessage(settings.languageList[13][settings.language] + '!', "260x100")
+            self.errorMessage(settings.languageList[13][settings.language] + '!', "340x140")
         else:
             resultByIDDao.ResultByIDDao.setNewRow()
             settings.test_number += 1

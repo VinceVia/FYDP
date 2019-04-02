@@ -99,6 +99,7 @@ class StartPage(tk.Frame):
             idLabel.grid(sticky=E, row=1, column=0, padx=10, pady=50)
 
             self.e1 = Entry(self.win, font=("Arial", 18))
+            self.e1.bind('<Click>', self.keyboard)
             self.e1.grid(sticky=E, row=1, column=1)
 
             quitButton = Button(self.win, borderwidth=5, text=settings.languageList[25][settings.language], command=self.win.destroy, bg="red")
@@ -115,6 +116,9 @@ class StartPage(tk.Frame):
             self.status = self.getStatus()
             self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
             self.start()
+
+    def keyboard(self, event):
+        print("HERE")
 
     def submit(self):
         sensorID = self.e1.get()

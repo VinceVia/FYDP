@@ -80,6 +80,7 @@ class StartPage(tk.Frame):
         elif(machine_status == 0):
             self.win = tk.Toplevel()
             self.win.config(bd=5, relief='raised')
+            self.win.config(cursor="none")
 
             if(settings.language==2):
                 self.win.geometry("600x250")
@@ -154,6 +155,7 @@ class StartPage(tk.Frame):
     def errorMessage(self, message, geometry):
         win = tk.Toplevel()
         win.config(bd=5, relief='raised')
+        win.config(cursor="none")
         win.geometry(geometry)
         misc.center(win)
         win.wm_title(settings.languageList[26][settings.language])

@@ -34,6 +34,7 @@ def csvExport():
 def createPopup(message, geometry):
     win = tk.Toplevel()
     win.config(bd=5, relief='raised')
+    win.config(cursor="none")
     win.geometry(geometry)
     center(win)
     win.wm_title(settings.languageList[31][settings.language])

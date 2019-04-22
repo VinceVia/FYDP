@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import *
 import settings
-import detailedResultsDao
 import resultByIDDao
 import misc
 import graphFunctions

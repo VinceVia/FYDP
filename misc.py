@@ -16,7 +16,6 @@ def center(win):
 
 def csvExport():
     dateTimeStamp = time.strftime('%Y%m%d%H%M%S')
-
     detailedResultsData = detailedResultsDao.DetailedResultsDao.get_table()
 
     f = open(dateTimeStamp + 'detailed_results_output.csv', 'w', newline="")

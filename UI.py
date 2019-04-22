@@ -1,7 +1,5 @@
-#!/usr/bin/python3
+#!/Users/admin/anaconda3/bin/python3
 import mainApp
-import sqlite3
-import tkinter as tk
 from tkinter import *
 import settings
 import languageDao
@@ -12,8 +10,8 @@ if __name__ == "__main__":
     settings.language = 2 #French as default language
     languageDao.LanguageDao.get_strings()
     settings.test_number = resultByIDDao.ResultByIDDao.get_test_number()[0]
-    #settings.failure_mode = resultByIDDao.ResultByIDDao.get_failure_mode(settings.test_number)[0]
+    #settings.failure_mode = resultByIDDao.ResultByIDDao.get_failure_mode(settings.test_number)[0] #Can't remember what this was for exactly
     app = mainApp.MainApp()
     app.attributes("-fullscreen", True)
-    app.config(cursor="none")
+    #app.config(cursor="none")
     app.mainloop()

@@ -1,13 +1,10 @@
 import tkinter as tk
 from tkinter import *
-from tkinter import ttk
 import settings
 import graphPage
-from tkinter import messagebox
 import resultByIDDao
 import misc
-import motorRoutine
-import os
+import motorRoutine 
 import subprocess
 
 class StartPage(tk.Frame):
@@ -73,7 +70,7 @@ class StartPage(tk.Frame):
     def start(self):
         machine_status = resultByIDDao.ResultByIDDao.get_test_status(settings.test_number)[0]
         if(machine_status == 1):
-            self.errorMessage(settings.languageList[27][settings.language], "310x100")
+            misc.createPopup(settings.languageList[27][settings.language], "310x100")
         elif(machine_status == 2):
             resultByIDDao.ResultByIDDao.setTestStatus(1) #In Progress
             self.status = self.getStatus()
@@ -120,7 +117,7 @@ class StartPage(tk.Frame):
             self.start()
 
     def keyboard(self, event):                
-        result = subprocess.Popen(['matchbox-keyboard'], stdout=subprocess.PIPE)#.communicate()[0]
+        result = subprocess.Popen(['matchbox-keyboard'], stdout=subprocess.PIPE)
 
     def submit(self):
         sensorID = self.e1.get()
@@ -135,13 +132,13 @@ class StartPage(tk.Frame):
     def stop(self):
         machine_status = resultByIDDao.ResultByIDDao.get_test_status(settings.test_number)[0]
         if(machine_status == 0 or machine_status == 3 or machine_status == 4):
-            self.errorMessage(settings.languageList[20][settings.language], "390x150")
+            misc.createPopup(settings.languageList[20][settings.language], "390x150")
         elif(machine_status == 1):
             resultByIDDao.ResultByIDDao.setTestStatus(2)
             self.status = self.getStatus()
             self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
         else:
-            self.errorMessage(settings.languageList[28][settings.language], "390x150")
+            misc.createPopup(settings.languageList[28][settings.language], "390x150")
         #motor stuff here
 
     def reset(self):
@@ -151,31 +148,12 @@ class StartPage(tk.Frame):
             self.status = self.getStatus()
             self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status) 
         elif(machine_status == 0):
-            self.errorMessage(settings.languageList[13][settings.language] + '!', "340x140")
+            misc.createPopup(settings.languageList[13][settings.language] + '!', "340x140")
         else:
             resultByIDDao.ResultByIDDao.setNewRow()
             settings.test_number += 1
             self.status = self.getStatus()
             self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
-
-    def errorMessage(self, message, geometry):
-        win = tk.Toplevel()
-        win.config(bd=5, relief='raised')
-        win.config(cursor="none")
-        win.geometry(geometry)
-        misc.center(win)
-        win.wm_title(settings.languageList[26][settings.language])
-
-        errorLabel = Label(win, text=message)
-        errorLabel.config(font=("Arial", 25, 'bold'))
-        errorLabel.grid(sticky=E+W, row=0, column=0, padx=5, pady=5)
-        
-        errorButton = Button(win, borderwidth=5, text=settings.languageList[25][settings.language], command=win.destroy, bg='red')
-        errorButton.config(font=("Arial", 20))
-        errorButton.grid(row=1, column=0, sticky=E, pady=10, padx=5)
-        
-    def returning(self):
-        print("Returning!")
 
     def setEnglish(self):
         settings.language = 1

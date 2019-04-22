@@ -1,8 +1,75 @@
 import time
 import resultByIDDao
 import settings
+import motorFunctions
 
 def fakeMotorRoutine(StartPage):
+	#TODO Create some kind of logging file
+	print("Starting Test 1")
+	motorFunctions.setAccelerationAndTargetSpeed(100, 900)
+	#Wait for 10 mins
+	motorFunctions.setAccelerationAndTargetSpeed(-25, 0)
+	#Some pause inbetween tests
+	motorFunctions.setAccelerationAndTargetSpeed(-100, -900)
+	#Wait for 10 mins
+	motorFunctions.setAccelerationAndTargetSpeed(25, 0)
+	print("Test 1 Complete")
+	#Some pause inbetween tests
+
+	print("Starting Test 2")
+	motorFunctions.setAccelerationAndTargetSpeed(100, 900)
+	#Wait for 30s
+	motorFunctions.setAccelerationAndTargetSpeed(-100, 0)
+	#Some pause inbetween tests
+	motorFunctions.setAccelerationAndTargetSpeed(-100, -900)
+	#Wait for 30s
+	motorFunctions.setAccelerationAndTargetSpeed(100, 0)
+	print("Finished Test 2")
+	#Some pause inbetween tests
+
+	print("Starting Test 3")
+	motorFunctions.setAccelerationAndTargetSpeed(100, 900)
+	#Wait for 30s	
+	motorFunctions.setAccelerationAndTargetSpeed(-100, 860)
+	#Wait for 10s
+	motorFunctions.setAccelerationAndTargetSpeed(-40, 500)
+	#Wait for 30s
+	motorFunctions.setAccelerationAndTargetSpeed(-100, 460)
+	#Wait for 10s
+	motorFunctions.setAccelerationAndTargetSpeed(-40, 100)
+	#Wait for 30s
+	motorFunctions.setAccelerationAndTargetSpeed(-100, 60)
+	#Wait for 10s
+	motorFunctions.setAccelerationAndTargetSpeed(-40, 0)
+	#Some pause inbetween tests
+	motorFunctions.setAccelerationAndTargetSpeed(-100, -900)
+	#Wait for 30s	
+	motorFunctions.setAccelerationAndTargetSpeed(100, -860)
+	#Wait for 10s
+	motorFunctions.setAccelerationAndTargetSpeed(40, -500)
+	#Wait for 30s
+	motorFunctions.setAccelerationAndTargetSpeed(100, -460)
+	#Wait for 10s
+	motorFunctions.setAccelerationAndTargetSpeed(40, -100)
+	#Wait for 30s
+	motorFunctions.setAccelerationAndTargetSpeed(100, -60)
+	#Wait for 10s
+	motorFunctions.setAccelerationAndTargetSpeed(40, -0)
+	print("Finished Test 3")
+	#Some pause inbetween tests
+
+	print("Starting Test 4")
+	motorFunctions.setAccelerationAndTargetSpeed(100, 900)
+	#Wait for 30s
+	motorFunctions.setAccelerationAndTargetSpeed(-72, 0)
+	#Some pause inbetween tests
+	motorFunctions.setAccelerationAndTargetSpeed(-100, -900)
+	#Wait for 30s
+	motorFunctions.setAccelerationAndTargetSpeed(72, 0)
+	print("Finished Test 3")
+	#Some pause inbetween tests
+
+	#Set Failure Mode Here if needed
 	print("SET TO SUCCESS")
 	resultByIDDao.ResultByIDDao.setTestStatus(4) #SUCCESS
 	StartPage.status = StartPage.getStatus()

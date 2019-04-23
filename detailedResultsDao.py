@@ -1,5 +1,6 @@
 import dao
 import settings
+import time
 
 class DetailedResultsDao:
 	def get_velocities(test_number):
@@ -62,3 +63,8 @@ class DetailedResultsDao:
 		database = dao.Database('fydp')
 		database.execute("SELECT * FROM detailed_results")
 		return database.fetchall()
+
+	def setNewRow(velocity, time, timestamp, sensor_id, pressure, test_section, overheat):
+		database = dao.Database('fydp')
+		database.execute("INSERT INTO detailed_results(id, test_id, velocity, time, timestamp, sensor_id, pressure, test_section, overheat) VALUES (? , ? , ?, ?, ?, ?, ?, ?, ?)", (None, settings.test_number, velocity, time, timestamp, sensor_id, pressure, test_section, overheat))
+		database.commit()

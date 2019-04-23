@@ -75,11 +75,11 @@ class StartPage(tk.Frame):
             resultByIDDao.ResultByIDDao.setTestStatus(1) #In Progress
             self.status = self.getStatus()
             self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
-            self.after(3000, motorRoutine.fakeMotorRoutine(self))
+            motorRoutine.fakeMotorRoutine(self)
         elif(machine_status == 0):
             self.win = tk.Toplevel(self)
             self.win.config(bd=5, relief='raised')
-            self.win.config(cursor="none")
+            #self.win.config(cursor="none")
 
             if(settings.language==2):
                 self.win.geometry("600x250")
@@ -98,7 +98,7 @@ class StartPage(tk.Frame):
             idLabel.grid(sticky=E, row=1, column=0, padx=10, pady=50)
 
             self.e1 = Entry(self.win, font=("Arial", 18))
-            self.e1.bind('<Button-1>', self.keyboard)
+            #self.e1.bind('<Button-1>', self.keyboard)
             self.e1.grid(sticky=E, row=1, column=1)
 
             quitButton = Button(self.win, borderwidth=5, text=settings.languageList[25][settings.language], command=self.win.destroy, bg="red")
@@ -127,7 +127,7 @@ class StartPage(tk.Frame):
             resultByIDDao.ResultByIDDao.setTestStatus(1) #In Progress
             self.status = self.getStatus()
             self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
-            self.after(3000, motorRoutine.fakeMotorRoutine(self))
+            motorRoutine.fakeMotorRoutine(self)
     
     def stop(self):
         machine_status = resultByIDDao.ResultByIDDao.get_test_status(settings.test_number)[0]

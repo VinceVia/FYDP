@@ -4,70 +4,85 @@ import settings
 import motorFunctions
 
 def fakeMotorRoutine(StartPage):
+	basetime = time.time()
 	#TODO Create some kind of logging file
+
 	print("Starting Test 1")
-	motorFunctions.setAccelerationAndTargetSpeed(100, 900)
-	#Wait for 10 mins
-	motorFunctions.setDeccelerationAndTargetSpeed(-25, 0)
-	# #Some pause inbetween tests
-	motorFunctions.setDeccelerationAndTargetSpeed(-100, -900)
-	# #Wait for 10 mins
-	motorFunctions.setAccelerationAndTargetSpeed(25, 0)
+	motorFunctions.setAccelerationAndTargetSpeed(100, 900, "1A", basetime)
+	motorFunctions.holdVelocityForTime(30, "1A", basetime) #1 min but should be 10
+	motorFunctions.setAccelerationAndTargetSpeed(-25, 0, "1A", basetime)
+
+	motorFunctions.holdVelocityForTime(10, "1A", basetime)
+
+	motorFunctions.setAccelerationAndTargetSpeed(-100, -900, "1B", basetime)
+	motorFunctions.holdVelocityForTime(30, "1B", basetime)
+	motorFunctions.setAccelerationAndTargetSpeed(25, 0, "1B", basetime)
 	print("Test 1 Complete")
-	# #Some pause inbetween tests
+	
+	#motorFunctions.holdVelocityForTime(10, "1B", basetime)
 
 	# print("Starting Test 2")
-	# motorFunctions.setAccelerationAndTargetSpeed(100, 900)
-	# #Wait for 30s
-	# motorFunctions.setDeccelerationAndTargetSpeed(-100, 0)
-	# #Some pause inbetween tests
-	# motorFunctions.setDeccelerationAndTargetSpeed(-100, -900)
-	# #Wait for 30s
-	# motorFunctions.setAccelerationAndTargetSpeed(100, 0)
+	# motorFunctions.setAccelerationAndTargetSpeed(100, 900, "2A", basetime)
+	# motorFunctions.holdVelocityForTime(30, "2A", basetime)
+	# motorFunctions.setAccelerationAndTargetSpeed(-100, 0, "2A", basetime)
+
+	# motorFunctions.holdVelocityForTime(30, "2A", basetime)
+
+	# motorFunctions.setAccelerationAndTargetSpeed(-100, -900, "2B", basetime)
+	# motorFunctions.holdVelocityForTime(30, "1A", basetime)
+	# motorFunctions.setAccelerationAndTargetSpeed(100, 0, "2B", basetime)
 	# print("Finished Test 2")
-	# #Some pause inbetween tests
+
+	# motorFunctions.holdVelocityForTime(30, "2B", basetime)
 
 	# print("Starting Test 3")
-	# motorFunctions.setAccelerationAndTargetSpeed(100, 900)
-	# #Wait for 30s	
-	# motorFunctions.setDeccelerationAndTargetSpeed(-100, 860)
-	# #Wait for 10s
-	# motorFunctions.setDeccelerationAndTargetSpeed(-40, 500)
-	# #Wait for 30s
-	# motorFunctions.setDeccelerationAndTargetSpeed(-100, 460)
-	# #Wait for 10s
-	# motorFunctions.setDecelerationAndTargetSpeed(-40, 100)
-	# #Wait for 30s
-	# motorFunctions.setDeccelerationAndTargetSpeed(-100, 60)
-	# #Wait for 10s
-	# motorFunctions.setDeccelerationAndTargetSpeed(-40, 0)
-	# #Some pause inbetween tests
-	# motorFunctions.setDeccelerationAndTargetSpeed(-100, -900)
-	# #Wait for 30s	
-	# motorFunctions.setAccelerationAndTargetSpeed(100, -860)
-	# #Wait for 10s
-	# motorFunctions.setAccelerationAndTargetSpeed(40, -500)
-	# #Wait for 30s
+	# motorFunctions.setAccelerationAndTargetSpeed(100, 900, "3A", basetime)
+	# motorFunctions.holdVelocityForTime(30, "3A", basetime)
+	# motorFunctions.setAccelerationAndTargetSpeed(-100, 860, "3A", basetime)
+	# motorFunctions.holdVelocityForTime(10, "3A", basetime)
+	# motorFunctions.setAccelerationAndTargetSpeed(-40, 500, "3A", basetime)
+	# motorFunctions.holdVelocityForTime(30, "3A", basetime)
+	# motorFunctions.setAccelerationAndTargetSpeed(-100, 460, "3A", basetime)
+	# motorFunctions.holdVelocityForTime(10, "3A", basetime)
+	# motorFunctions.setAcelerationAndTargetSpeed(-40, 100, "3A", basetime)
+	# motorFunctions.holdVelocityForTime(30, "3A", basetime)
+	# motorFunctions.setAccelerationAndTargetSpeed(-100, 60, "3A", basetime)
+	# motorFunctions.holdVelocityForTime(10, "3A", basetime)
+	# motorFunctions.setAccelerationAndTargetSpeed(-40, 0, "3A", basetime)
+	
+	# motorFunctions.holdVelocityForTime(10, "3A", basetime)
+
+	# motorFunctions.setAccelerationAndTargetSpeed(-100, -900, "3B", basetime)
+	# motorFunctions.holdVelocityForTime(30, "3B", basetime)
+	# motorFunctions.setAccelerationAndTargetSpeed(100, -860, "3B", basetime)
+	# motorFunctions.holdVelocityForTime(30, "3B", basetime)
+	# motorFunctions.setAccelerationAndTargetSpeed(40, -500, "3B", basetime)
+	# motorFunctions.holdVelocityForTime(30, "3B", basetime)
 	# motorFunctions.setAccelerationAndTargetSpeed(100, -460)
-	# #Wait for 10s
-	# motorFunctions.setAccelerationAndTargetSpeed(40, -100)
-	# #Wait for 30s
+	# motorFunctions.holdVelocityForTime(30, "3B", basetime)
+	# motorFunctions.setAccelerationAndTargetSpeed(40, -100, "3B", basetime)
+	# motorFunctions.holdVelocityForTime(30, "3B", basetime)
 	# motorFunctions.setAccelerationAndTargetSpeed(100, -60)
-	# #Wait for 10s
-	# motorFunctions.setAccelerationAndTargetSpeed(40, -0)
+	# motorFunctions.holdVelocityForTime(10, "3B", basetime)
+	# motorFunctions.setAccelerationAndTargetSpeed(40, -0, "3B", basetime)
 	# print("Finished Test 3")
-	# #Some pause inbetween tests
+	
+	#motorFunctions.holdVelocityForTime(10, "3B", basetime)
 
 	# print("Starting Test 4")
-	# motorFunctions.setAccelerationAndTargetSpeed(100, 900)
-	# #Wait for 30s
-	# motorFunctions.setDeccelerationAndTargetSpeed(-72, 0)
+	# motorFunctions.setAccelerationAndTargetSpeed(100, 900, "4A", basetime)
+	# motorFunctions.holdVelocityForTime(30, "4A", basetime)
+	# motorFunctions.setAccelerationAndTargetSpeed(-72, 0, "4A", basetime)
+	
+	#motorFunctions.holdVelocityForTime(10, "4A", basetime)
+
+	# motorFunctions.setAccelerationAndTargetSpeed(-100, -900, "4B", basetime)
+	# motorFunctions.holdVelocityForTime(30, "4A", basetime)
+	# motorFunctions.setAccelerationAndTargetSpeed(72, 0, "4B", basetime)
+	# print("Finished Test 4")
 	# #Some pause inbetween tests
-	# motorFunctions.setDeccelerationAndTargetSpeed(-100, -900)
-	# #Wait for 30s
-	# motorFunctions.setAccelerationAndTargetSpeed(72, 0)
-	# print("Finished Test 3")
-	# #Some pause inbetween tests
+
+	#motorFunctions.holdVelocityForTime(30, "1A", basetime)
 
 	#Set Failure Mode Here if needed
 	print("SET TO SUCCESS")

@@ -7,6 +7,7 @@ import settings
 from tkinter import *
 import os
 import glob
+import shutil
 
 
 def center(win):
@@ -22,11 +23,29 @@ def csvExport():
     #TRANSFER FILES WITH ENDING .CSV
     #DELETE .CSV FILES LOCALLY
     
-    path = '/Users/admin/FYDP/FYDP'
-    extension = 'csv'
-    os.chdir(path)
-    result = glob.glob('*.{}'.format(extension))
-    print(result)
+    #path = '/Users/admin/FYDP/FYDP'
+    
+    if len(os.listdir('/media/pi')) == 0:
+    	print("EMPTY")
+    else:
+    	print("USB FOUND")
+    	foldername = os.listdir('/media/pi')[0]
+    	print(foldername)
+    	usbpath = "/media/pi/" + foldername
+    	
+    	csvFiles = os.listdir('/home/pi/FYDP')
+    	for f in csvFiles:
+    		if f.endswith("csv"):
+    			print(f)
+    			shutil.move(f, usbpath)
+    	
+    	#path = '/home/pi/FYDP'
+    	#extension = 'csv'
+    	#os.chdir(path)
+    	#result = glob.glob('*.{}'.format(extension))
+    	#print(result)
+    	
+    	#shutil.move(result, usbpath)
 
     dateTimeStamp = time.strftime('%Y%m%d%H%M%S')
     detailedResultsData = detailedResultsDao.DetailedResultsDao.get_table()
@@ -47,6 +66,7 @@ def csvExport():
     resultByIDDao.ResultByIDDao.clearDatabase()
     settings.test_number = 0
     resultByIDDao.ResultByIDDao.setNewRow()
+    settings.test_number = 1
 
     detailedResultsDao.DetailedResultsDao.clearDatabase()
 

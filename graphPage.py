@@ -40,7 +40,7 @@ class GraphPage(tk.Frame):
 
     def csvExport(self):
         misc.csvExport()
-        misc.createPopup(settings.languageList[32][settings.language], "150x120")
+        misc.createPopup(settings.languageList[32][settings.language], "200x150")
 
     def setEnglish(self):
         settings.language = 1

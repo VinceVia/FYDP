@@ -68,3 +68,8 @@ class DetailedResultsDao:
 		database = dao.Database('fydp')
 		database.execute("INSERT INTO detailed_results(id, test_id, velocity, time, timestamp, sensor_id, pressure, test_section, overheat) VALUES (? , ? , ?, ?, ?, ?, ?, ?, ?)", (None, settings.test_number, velocity, time, timestamp, sensor_id, pressure, test_section, overheat))
 		database.commit()
+
+	def clearDatabase():
+		database = dao.Database('fydp')
+		database.execute("DELETE FROM detailed_results")
+		database.commit()

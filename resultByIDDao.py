@@ -51,3 +51,8 @@ class ResultByIDDao:
 		database = dao.Database('fydp')
 		database.execute("INSERT INTO result_by_id(id, sensor_id, test_status, failure_mode) VALUES (?, ? , ?, ?)", (settings.test_number + 1, None, 0, 0))
 		database.commit()
+
+	def clearDatabase():
+		database = dao.Database('fydp')
+		database.execute("DELETE FROM result_by_id")
+		database.commit()

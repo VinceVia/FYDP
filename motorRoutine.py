@@ -84,7 +84,9 @@ def fakeMotorRoutine(StartPage):
 
 	#motorFunctions.holdVelocityForTime(30, "1A", basetime)
 
-	#Set Failure Mode Here if needed
+	#SET FAILURE MODE WHEN IT OCCURS IN TEST AND BREAK
+	#FOR NOW ALWAYS SUCCESS
+	
 	print("SET TO SUCCESS")
 	resultByIDDao.ResultByIDDao.setTestStatus(4) #SUCCESS
 	StartPage.status = StartPage.getStatus()

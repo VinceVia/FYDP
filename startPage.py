@@ -22,7 +22,7 @@ class StartPage(tk.Frame):
         self.progress_label = Label(self, text=settings.languageList[1][settings.language] + ' ' + self.getStatus())
         self.progress_label.config(font=("Arial", 23))
         self.progress_label.grid(row=1, columnspan=3, pady=5)
-        
+
         self.results_link = Button(self, text=settings.languageList[2][settings.language], fg="blue", relief="flat", command=lambda: controller.show_frame("GraphPage"))
         self.results_link.config(font=("Arial", 23, "italic"))
         self.results_link.grid(row=2, columnspan=3)
@@ -79,7 +79,7 @@ class StartPage(tk.Frame):
         elif(machine_status == 0):
             self.win = tk.Toplevel(self)
             self.win.config(bd=5, relief='raised')
-            self.win.config(cursor="none")
+            #self.win.config(cursor="none")
 
             if(settings.language==2):
                 self.win.geometry("600x250")
@@ -98,7 +98,7 @@ class StartPage(tk.Frame):
             idLabel.grid(sticky=E, row=1, column=0, padx=10, pady=50)
 
             self.e1 = Entry(self.win, font=("Arial", 18))
-            self.e1.bind('<Button-1>', self.keyboard)
+            #self.e1.bind('<Button-1>', self.keyboard)
             self.e1.grid(sticky=E, row=1, column=1)
 
             quitButton = Button(self.win, borderwidth=5, text=settings.languageList[25][settings.language], command=self.win.destroy, bg="red")

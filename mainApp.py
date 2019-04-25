@@ -19,11 +19,12 @@ class MainApp(tk.Tk):
         self.frames = {}
         self.frames["StartPage"] = startPage.StartPage(parent=container, controller=self)
         self.frames["GraphPage"] = graphPage.GraphPage(parent=container, controller=self)
-        self.frames["PreviousGraphPage"] = previousGraphPage.PreviousGraphPage(parent=container, controller=self)
+        if(settings.test_number > 1):
+            self.frames["PreviousGraphPage"] = previousGraphPage.PreviousGraphPage(parent=container, controller=self)
+            self.frames["PreviousGraphPage"].grid(row=0, column=0, sticky="nsew")
 
         self.frames["StartPage"].grid(row=0, column=0, sticky="nsew")
         self.frames["GraphPage"].grid(row=0, column=0, sticky="nsew")
-        self.frames["PreviousGraphPage"].grid(row=0, column=0, sticky="nsew")
 
         self.show_frame("StartPage")
 

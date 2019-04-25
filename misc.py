@@ -5,6 +5,9 @@ import csv
 import tkinter as tk
 import settings
 from tkinter import *
+import os
+import glob
+
 
 def center(win):
     win.update_idletasks()
@@ -15,6 +18,16 @@ def center(win):
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
 
 def csvExport():
+    #FIGURE OUT IF USB IS PLUGGED IN
+    #TRANSFER FILES WITH ENDING .CSV
+    #DELETE .CSV FILES LOCALLY
+    
+    path = '/Users/admin/FYDP/FYDP'
+    extension = 'csv'
+    os.chdir(path)
+    result = glob.glob('*.{}'.format(extension))
+    print(result)
+
     dateTimeStamp = time.strftime('%Y%m%d%H%M%S')
     detailedResultsData = detailedResultsDao.DetailedResultsDao.get_table()
 
@@ -30,10 +43,17 @@ def csvExport():
     writer.writerows(resultByIDData)
     f.close()
 
+    #CLEAR DB's
+    resultByIDDao.ResultByIDDao.clearDatabase()
+    settings.test_number = 0
+    resultByIDDao.ResultByIDDao.setNewRow()
+
+    detailedResultsDao.DetailedResultsDao.clearDatabase()
+
 def createPopup(message, geometry):
     win = tk.Toplevel()
     win.config(bd=5, relief='raised')
-    win.config(cursor="none")
+    #win.config(cursor="none")
     win.geometry(geometry)
     center(win)
     win.wm_title(settings.languageList[31][settings.language])

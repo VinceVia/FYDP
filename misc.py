@@ -35,13 +35,11 @@ def csvExport():
 
     if len(os.listdir('/media/pi')) > 0:
         foldername = os.listdir('/media/pi')[0]
-        print(foldername)
         usbpath = "/media/pi/" + foldername
         
         csvFiles = os.listdir('/home/pi/FYDP')
         for f in csvFiles:
             if f.endswith("csv"):
-                print(f)
                 shutil.move(f, usbpath)
 
         resultByIDDao.ResultByIDDao.clearDatabase()

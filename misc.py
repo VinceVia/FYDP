@@ -6,7 +6,6 @@ import tkinter as tk
 import settings
 from tkinter import *
 import os
-import glob
 import shutil
 
 
@@ -19,34 +18,6 @@ def center(win):
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
 
 def csvExport():
-    #FIGURE OUT IF USB IS PLUGGED IN
-    #TRANSFER FILES WITH ENDING .CSV
-    #DELETE .CSV FILES LOCALLY
-    
-    #path = '/Users/admin/FYDP/FYDP'
-    
-    if len(os.listdir('/media/pi')) == 0:
-    	print("EMPTY")
-    else:
-    	print("USB FOUND")
-    	foldername = os.listdir('/media/pi')[0]
-    	print(foldername)
-    	usbpath = "/media/pi/" + foldername
-    	
-    	csvFiles = os.listdir('/home/pi/FYDP')
-    	for f in csvFiles:
-    		if f.endswith("csv"):
-    			print(f)
-    			shutil.move(f, usbpath)
-    	
-    	#path = '/home/pi/FYDP'
-    	#extension = 'csv'
-    	#os.chdir(path)
-    	#result = glob.glob('*.{}'.format(extension))
-    	#print(result)
-    	
-    	#shutil.move(result, usbpath)
-
     dateTimeStamp = time.strftime('%Y%m%d%H%M%S')
     detailedResultsData = detailedResultsDao.DetailedResultsDao.get_table()
 
@@ -62,13 +33,23 @@ def csvExport():
     writer.writerows(resultByIDData)
     f.close()
 
-    #CLEAR DB's
-    resultByIDDao.ResultByIDDao.clearDatabase()
-    settings.test_number = 0
-    resultByIDDao.ResultByIDDao.setNewRow()
-    settings.test_number = 1
+    if len(os.listdir('/media/pi')) > 0:
+        foldername = os.listdir('/media/pi')[0]
+        print(foldername)
+        usbpath = "/media/pi/" + foldername
+        
+        csvFiles = os.listdir('/home/pi/FYDP')
+        for f in csvFiles:
+            if f.endswith("csv"):
+                print(f)
+                shutil.move(f, usbpath)
 
-    detailedResultsDao.DetailedResultsDao.clearDatabase()
+        resultByIDDao.ResultByIDDao.clearDatabase()
+        settings.test_number = 0
+        resultByIDDao.ResultByIDDao.setNewRow()
+        settings.test_number = 1
+
+        detailedResultsDao.DetailedResultsDao.clearDatabase()
 
 def createPopup(message, geometry):
     win = tk.Toplevel()

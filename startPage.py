@@ -98,7 +98,7 @@ class StartPage(tk.Frame):
             idLabel.grid(sticky=E, row=1, column=0, padx=10, pady=50)
 
             self.e1 = Entry(self.win, font=("Arial", 18))
-            #self.e1.bind('<Button-1>', self.keyboard)
+            self.e1.bind('<Button-1>', self.keyboard)
             self.e1.grid(sticky=E, row=1, column=1)
 
             quitButton = Button(self.win, borderwidth=5, text=settings.languageList[25][settings.language], command=self.win.destroy, bg="red")

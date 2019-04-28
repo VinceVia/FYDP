@@ -2,6 +2,12 @@ import time
 import resultByIDDao
 import detailedResultsDao
 import settings
+import serial
+import minimalmodbus
+
+instr = minimalmodbus.Instrument('/dev/ttyUSB0', 1)
+instr.debug = True
+instr.serial.parity = serial.PARITY_EVEN
 
 velocity = 0
 basetime = time.time()
@@ -25,6 +31,12 @@ def writeRow(velocity, basetime, testSection):
 	testNumber = resultByIDDao.ResultByIDDao.get_test_number()[0]
 	sensorID = resultByIDDao.ResultByIDDao.get_sensor_id(testNumber)[0]
 	detailedResultsDao.DetailedResultsDao.setNewRow(velocity, elapsedTime, time.time(), sensorID, pressure, testSection, overheat)
+
+def setSpeed(acceleration, targetSpeed, testSection, basetime):
+	try:
+		instr.write_register(1798,1,numberOfDecimals=0,functioncode=6,signed=False)
+	except IOError:
+		print("Failed to set motor forward")
 
 def setAccelerationAndTargetSpeed(acceleration, targetSpeed, testSection, basetime):
 	global velocity

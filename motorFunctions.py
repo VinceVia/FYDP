@@ -40,19 +40,19 @@ def calculateSpeed(numOfPulses, sampleTime):
 
 def getVelocity(numOfPulses, sampleTime):
 	try:
-        start = time.time()
-        while counter<50000:
-                clkState = GPIO.input(B)
-                dtState = GPIO.input(A)
-                if(clkState != clkLastState or dtState != dtLastState):
-                			counter += 1
-                clkLastState = clkState
-                dtLastState = dtState
-        timeElapsed=(time.time() - start)
-        pulses=(counter/5)
-        calculateSpeed(pulses, timeElapsed)
+		start = time.time()
+		while counter<50000:
+			clkState = GPIO.input(B)
+			dtState = GPIO.input(A)
+			if(clkState != clkLastState or dtState != dtLastState):
+				counter += 1
+				clkLastState = clkState
+				dtLastState = dtState
+			timeElapsed=(time.time() - start)
+			pulses=(counter/5)
+			calculateSpeed(pulses, timeElapsed)
 	finally:
-        GPIO.cleanup()
+		GPIO.cleanup()
 
 def getPressure():
 	return(0)
@@ -69,11 +69,11 @@ def writeRow(velocity, basetime, testSection):
 	detailedResultsDao.DetailedResultsDao.setNewRow(velocity, elapsedTime, time.time(), sensorID, pressure, testSection, overheat)
 
 def setSpeed(targetSpeed):
-
+	velocity = int(targetSpeed*(20000/60))
 	try:
 		instr.write_register(1793, velocity, numberOfDecimals=0, functioncode=6, signed=False)
 	except IOError:
-		print("Failed to set motor forward")
+		print("Failed to set frequency")
 
 def startMotorForward():
 	try:

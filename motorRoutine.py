@@ -8,7 +8,12 @@ def fakeMotorRoutine(StartPage):
 	#TODO Create some kind of logging file
 
 	print("Starting Test 1")
-	motorFunctions.setSpeed(100, 900, "1A", basetime)
+	motorFunctions.setSpeed(900)
+	motorFunctions.startMotorForward()
+	startTime = time.time()
+	while((time.time() - startTime() < 10)
+		motorFunctions.getVelocity()
+	motorFunctions.stopMotor() 
 	#motorFunctions.holdVelocityForTime(30, "1A", basetime) #1 min but should be 10
 	#motorFunctions.setAccelerationAndTargetSpeed(-25, 0, "1A", basetime)
 

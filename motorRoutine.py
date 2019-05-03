@@ -4,11 +4,14 @@ import settings
 import motorFunctions
 
 def fakeMotorRoutine(StartPage):
-	basetime = time.time()
-	#TODO Create some kind of logging file
+	basetime = time.time() #use to calculate elapsed time
+	#TODO Create some kind of logging file, for debugging
+	#TODO: writeRow to write velocity into database (see motorFunctions)
+	#TODO: Make the routine work
+	#TODO: Set failure mode
 
 	print("Starting Test 1")
-	motorFunctions.setSpeed(900)
+	motorFunctions.setVelocity(900)
 	motorFunctions.startMotorForward()
 	#startTime = time.time()
 	#while(True):
@@ -95,7 +98,7 @@ def fakeMotorRoutine(StartPage):
 	#FOR NOW ALWAYS SUCCESS
 	
 	print("SET TO SUCCESS")
-	resultByIDDao.ResultByIDDao.setTestStatus(4) #SUCCESS
+	resultByIDDao.ResultByIDDao.setTestStatus(4) #SUCCESS - TODO: add failure reason to failed test, by using its number
 	StartPage.status = StartPage.getStatus()
 	StartPage.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + StartPage.status)
 

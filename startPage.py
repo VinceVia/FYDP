@@ -70,7 +70,7 @@ class StartPage(tk.Frame):
     def start(self):
         machine_status = resultByIDDao.ResultByIDDao.get_test_status(settings.test_number)[0]
         if(machine_status == 1):
-            misc.createPopup(settings.languageList[27][settings.language], "310x100")
+            misc.createPopup(settings.languageList[27][settings.language], "310x100") #TODO: may be wrong size
         elif(machine_status == 2):
             resultByIDDao.ResultByIDDao.setTestStatus(1) #In Progress
             self.status = self.getStatus()
@@ -98,7 +98,7 @@ class StartPage(tk.Frame):
             idLabel.grid(sticky=E, row=1, column=0, padx=10, pady=50)
 
             self.e1 = Entry(self.win, font=("Arial", 18))
-            self.e1.bind('<Button-1>', self.keyboard)
+            self.e1.bind('<Button-1>', self.keyboard) #binds it to keyboard
             self.e1.grid(sticky=E, row=1, column=1)
 
             quitButton = Button(self.win, borderwidth=5, text=settings.languageList[25][settings.language], command=self.win.destroy, bg="red")
@@ -116,7 +116,7 @@ class StartPage(tk.Frame):
             self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
             self.start()
 
-    def keyboard(self, event):                
+    def keyboard(self, event): #TODO: find out how to make keyboard stay on top (perhaps in keyboard config)               
         result = subprocess.Popen(['matchbox-keyboard'], stdout=subprocess.PIPE)
 
     def submit(self):
@@ -125,6 +125,7 @@ class StartPage(tk.Frame):
             self.win.destroy()
             resultByIDDao.ResultByIDDao.setSensorID(sensorID)
             resultByIDDao.ResultByIDDao.setTestStatus(1) #In Progress
+            #TODO: does not visibly set test status until motor routine done on Pi, but sets in backend
             self.status = self.getStatus()
             self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
             motorRoutine.fakeMotorRoutine(self)
@@ -163,7 +164,7 @@ class StartPage(tk.Frame):
         settings.language = 2
         self.setLanguage()
 
-    def setLanguage(self):
+    def setLanguage(self): #UI update methods
         self.label.configure(text=settings.languageList[0][settings.language])
         self.status = self.getStatus()
         self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
@@ -171,6 +172,7 @@ class StartPage(tk.Frame):
         self.start_button.configure(text=settings.languageList[3][settings.language])
         self.stop_button.configure(text=settings.languageList[4][settings.language])
         self.reset_button.configure(text=settings.languageList[29][settings.language])
+        #If you add another popup, must define that UI element here
 
         if(settings.test_number > 1):
             self.previous_results.configure(text=settings.languageList[5][settings.language])

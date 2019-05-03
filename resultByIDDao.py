@@ -37,7 +37,7 @@ class ResultByIDDao:
 		database.execute("SELECT sensor_id FROM result_by_id WHERE id=(?)", (test_number,))
 		return [item[0] for item in database.fetchall()]
 
-	def setSensorID(sensorID):
+	def setSensorID(sensorID): #note that naming convention changed
 		database = dao.Database('fydp')
 		database.execute("UPDATE result_by_id SET sensor_id=(?) WHERE id=(?)", (sensorID, settings.test_number,))
 		database.commit()

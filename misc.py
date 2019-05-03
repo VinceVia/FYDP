@@ -9,7 +9,7 @@ import os
 import shutil
 
 
-def center(win):
+def center(win): #centres a popup
     win.update_idletasks()
     width = win.winfo_width()
     height = win.winfo_height()
@@ -17,7 +17,7 @@ def center(win):
     y = (win.winfo_screenheight() // 2) - (height // 2)
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
 
-def csvExport():
+def csvExport(): #done
     dateTimeStamp = time.strftime('%Y%m%d%H%M%S')
     detailedResultsData = detailedResultsDao.DetailedResultsDao.get_table()
 
@@ -50,6 +50,7 @@ def csvExport():
         detailedResultsDao.DetailedResultsDao.clearDatabase()
 
 def createPopup(message, geometry):
+    #TODO: might need to change cursor config on Pi
     win = tk.Toplevel()
     win.config(bd=5, relief='raised')
     #win.config(cursor="none")

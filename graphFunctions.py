@@ -58,6 +58,7 @@ def getStatus(self, isPrevious):
     return switcher.get(machine_status, settings.languageList[18][settings.language])
 
 def getFailureInfo(self, isPrevious):
+    #TODO: 
     if(isPrevious):
         test_number = settings.test_number - 1
     else:
@@ -84,7 +85,7 @@ def getFailureInfo(self, isPrevious):
 
     elif(failure_mode == 2): #Air Leak or Device Activation
         errorFound = False
-        sectionList = ['1A', '1B', '4A', '4B']
+        sectionList = ['1A', '1B', '4A', '4B'] #only look in these sections, as you don't care if this failure case occurs in test 2 or 3
 
         for test_section in sectionList:
             detailed_id = detailedResultsDao.DetailedResultsDao.get_first_id_by_test_section(test_number, test_section)[0]
@@ -92,7 +93,7 @@ def getFailureInfo(self, isPrevious):
             if(errorFound):
                 break;
 
-    elif(failure_mode == 3): #Failure to Exhaust Air
+    elif(failure_mode == 3): #Failure to Exhaust Air 
         sectionList = ['2A', '2B', '3A', '3B']
 
         for test_section in sectionList:
@@ -101,7 +102,7 @@ def getFailureInfo(self, isPrevious):
             if(errorFound):
                 break;
 
-    elif(failure_mode == 4): #Failure to Exhaust Air
+    elif(failure_mode == 4): #Exhausting Too Long (>1 s)
         sectionList = ['2A', '2B', '3A', '3B']
 
         for test_section in sectionList:
@@ -110,31 +111,32 @@ def getFailureInfo(self, isPrevious):
             if(errorFound):
                 break;
 
-def findPressureError(detailed_id, test_section, test_number, message):
-    retval = False
-    pressure_vals = detailedResultsDao.DetailedResultsDao.get_pressure_by_test_section(test_number, test_section)
+def findPressureError(detailed_id, test_section, test_number, message): #for the popup
+    retval = False #no return val
+    pressure_vals = detailedResultsDao.DetailedResultsDao.get_pressure_by_test_section(test_number, test_section) #get pressures from DB
     for pressure in pressure_vals:
         if(pressure>0):
-            time = detailedResultsDao.DetailedResultsDao.get_time_by_id(detailed_id)[0]
-            velocity = detailedResultsDao.DetailedResultsDao.get_velocity_by_id(detailed_id)[0]
+            time = detailedResultsDao.DetailedResultsDao.get_time_by_id(detailed_id)[0] #failure time
+            velocity = detailedResultsDao.DetailedResultsDao.get_velocity_by_id(detailed_id)[0] #velocity at which failure occured
 
             message += (test_section + '\n' + '\n' + settings.languageList[33][settings.language] + ' ' + settings.languageList[37][settings.language] 
             + '\n' + settings.languageList[34][settings.language] + ' ' + str(time) + ' s ' + settings.languageList[35][settings.language] 
-            + ' ' + str(velocity) +' m/s ')
+            + ' ' + str(velocity) +' m/s ') #TODO: use this for the other failure routines eg. findNoExhaustError
             misc.createPopup(message, "600x300")
             retval=True
             break
         detailed_id +=1
     return retval
 
-#NOT SURE HOW TO DO THESE YET
+#TODO: NOT SURE HOW TO DO THESE YET
+#base these off findPressureError, all you need to do is decide on failure criteria for measurements
 def findNoExhaustError(detailed_id, test_section, test_number, message):
     retval = False
 
 def findOverExhaustError(detailed_id, test_section, test_number, message):
     retval = False
 
-def getFailurePoints(self, isPrevious):
+def getFailurePoints(self, isPrevious): #for the graph
     if(isPrevious):
         test_number = settings.test_number - 1
     else:
@@ -147,7 +149,8 @@ def getFailurePoints(self, isPrevious):
     elif(failure_mode == 2): #Air Leak or Device Activation
         times_activated = detailedResultsDao.DetailedResultsDao.get_times_activated(test_number)
         self.markers_on = times_activated
-    elif(failure_mode == 3): #Failure to Exhaust Air
+    elif(failure_mode == 3): #TODO: write this database getter for Failure to Exhaust Air
         print("Failed to Exhaust")
-    elif(failure_mode == 4): #Exhausting Too Long (>1 s)
+        #get times where it failed to exhaust, for measurements returned by failure routine (eg. findNoExhaustError)
+    elif(failure_mode == 4): #TODO: write getter for Exhausting Too Long (>1 s)
         print("Exhausting too long")

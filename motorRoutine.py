@@ -3,13 +3,59 @@ import resultByIDDao
 import settings
 import motorFunctions
 
-def fakeMotorRoutine(StartPage):
+def MotorRoutine(StartPage):
 	basetime = time.time()
-	#TODO Create some kind of logging file
+        motorFunctions.connectVFD()
 
-	print("Starting Test 1")
-	motorFunctions.setSpeed(900)
-	motorFunctions.startMotorForward()
+        print("Starting Test 1: Run-In, Operating Temperature, and Vibration")
+        print("Test 1 - Clockwise direction")
+        motorFunctions.setAccelerationTime(90) #9s acceleration time
+        motorFunctions.setSpeed(900) #900rpm target speed
+        motorFunctions.startMotorForward()
+        time.sleep(9) #accelerate for 9s
+        time.sleep(600) #maintain speed for 10min TODO: add checks for temperature, air pressure
+        motorFunctions.setDecelerationTime(1060) #36s deceleration time
+        motorFunctions.setSpeed(0) #0rpm target sped
+        motorFunctions.stopMotor() #TODO: check if this uses the right deceleration rate, change to startMotorForwards() with target speed 0 if not
+        time.sleep(36) #decelerate for 36s 
+        print("Test 1 - Anticlockwise direction")
+        motorFunctions.setAccelerationTime(90) #9s acceleration time
+        motorFunctions.setSpeed(900) #900rpm target speed
+        motorFunctions.startMotorBackward()
+        time.sleep(9) #accelerate for 9s
+        time.sleep(600) #maintain speed for 10min TODO: add checks for temperature, air pressure
+        motorFunctions.setDecelerationTime(1060) #36s deceleration time
+        motorFunctions.setSpeed(0) #0rpm target sped
+        motorFunctions.stopMotor() #TODO: check if this uses the right deceleration rate, change to startMotorBackwards() with target speed 0 if not
+        time.sleep(36) #decelerate for 36s 
+        print("Test 1 finished")
+
+        print("Starting Test 2: Severe Skid Sensitivity Test")
+        print("Test 2 - Clockwise direction")
+        motorFunctions.setAccelerationTime(90) #9s acceleration time
+        motorFunctions.setSpeed(900) #900rpm target speed
+        motorFunctions.startMotorForward()
+        time.sleep(9) #accelerate for 9s
+        time.sleep(30) #maintain speed for 30s TODO: add other sensors
+        motorFunctions.setDecelerationTime(90) #9s deceleration time
+        motorFunctions.setSpeed(0) #0rpm target sped
+        motorFunctions.stopMotor() #TODO: check if this uses the right deceleration rate, change to startMotorForwards() with target speed 0 if not
+        print("Test 2 - Anticlockwise direction")
+        motorFunctions.setAccelerationTime(90) #9s acceleration time
+        motorFunctions.setSpeed(900) #900rpm target speed
+        motorFunctions.startMotorBackward()
+        time.sleep(9) #accelerate for 9s
+        time.sleep(30) #maintain speed for 30s TODO: add other sensors
+        motorFunctions.setDecelerationTime(90) #9s deceleration time
+        motorFunctions.setSpeed(0) #0rpm target sped
+        motorFunctions.stopMotor() #TODO: check if this uses the right deceleration rate, change to startMotorForwards() with target speed 0 if not
+        print("Test 2 finished") 
+        
+        print("Starting Test 3: Short Skid Tests")
+
+
+	#motorFunctions.setSpeed(900)
+	#motorFunctions.startMotorForward()
 	#startTime = time.time()
 	#while(True):
 	

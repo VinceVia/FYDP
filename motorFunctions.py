@@ -19,9 +19,9 @@ counter = 0
 clkLastState = GPIO.input(B)
 dtLastState = GPIO.input(A)
 
-instr = minimalmodbus.Instrument('/dev/ttyUSB0', 1)
-instr.debug = True
-instr.serial.parity = serial.PARITY_EVEN
+#instr = minimalmodbus.Instrument('/dev/ttyUSB0', 1)
+#instr.debug = True
+#instr.serial.parity = serial.PARITY_EVEN
 
 velocity = 0
 basetime = time.time()
@@ -31,6 +31,13 @@ basetime = time.time()
 # 	if(velocity == None):
 # 		velocity=0
 # 	return velocity
+
+def connectVFD():
+    instr = minimalmodbus.Instrument('/dev/ttyUSB0',1)
+    instr.debug = True #TODO:comment this out after testing is done
+    instr.serial.parity = serial.PARITY_EVEN
+    except IOError:
+        print("Failed to connect to VFD")
 
 def calculateSpeed(numOfPulses, sampleTime):
 	N=1000
@@ -68,61 +75,75 @@ def writeRow(velocity, basetime, testSection):
 	sensorID = resultByIDDao.ResultByIDDao.get_sensor_id(testNumber)[0]
 	detailedResultsDao.DetailedResultsDao.setNewRow(velocity, elapsedTime, time.time(), sensorID, pressure, testSection, overheat)
 
-def setSpeed(targetSpeed):
-	velocity = int(targetSpeed*(20000/60))
+def setSpeed(targetSpeed): #VFD register S01
+	#velocity = int(targetSpeed*(20000/60))
+        frequency = 0.056891*targetSpeed - 6.385283 #from experiment, see graph Motor_RPM_vs_VFD_Frequency_trend.ods
 	try:
-		instr.write_register(1793, velocity, numberOfDecimals=0, functioncode=6, signed=False)
+		instr.write_register(1793, frequency, functioncode=6)
 	except IOError:
-		print("Failed to set frequency")
+		print("Failed to set frequency S01")
 
-def startMotorForward():
+def startMotorForward(): #VFD register S06
 	try:
-		instr.write_register(1798, 1, numberOfDecimals=1, functioncode=6, signed=False)
+		instr.write_register(1798, 1, functioncode=6)
 	except IOError:
-		print("Failed to set motor forward")
+		print("Failed to set motor forward S06")
 
-def startMotorReverse():
+def startMotorReverse(): #VFD register S06
 	try:
-		instr.write_register(1798, 1, numberOfDecimals=2, functioncode=6, signed=False)
+		instr.write_register(1798, 2, functioncode=6)
 	except IOError:
-		print("Failed to set motor reverse")
+		print("Failed to set motor reverse S06")
 
-def stopMotor():
+def stopMotor(): #VFD register S06
 	try:
-		instr.write_register(1798, 1, numberOfDecimals=0, functioncode=6, signed=False)
+		instr.write_register(1798, 0, functioncode=6)
 	except IOError:
-		print("Failed to set motor forward")
+		print("Failed to stop motor S06")
 
-def setAccelerationAndTargetSpeed(acceleration, targetSpeed, testSection, basetime):
-	global velocity
-	print("Setting Acceleration to: " + str(acceleration) + " and Target Speed to: " + str(targetSpeed))
-	velocity = getVelocity()
-	timeSinceLastRow = time.time()
+def setAccelerationTime(accelerationTime): #VFD register S08
+        try:
+            instr.write_register(1800, accelerationTime, functioncode=6)
+        except IOError:
+            print("Failed to set acceleration time S08")
 
-	#THIS CAN BE CLEANED UP ONCE REAL SPEED IS BEING READ
-	if(acceleration > 0):
-		while(velocity < targetSpeed):
-			if(time.time() - timeSinceLastRow > 0.2):
-				velocity += (acceleration/10)
-				timeSinceLastRow = time.time()
-				writeRow(velocity, basetime, testSection)
-	else:
-		while(velocity > targetSpeed):
-			if(time.time() - timeSinceLastRow > 0.2):
-				velocity += (acceleration/10)
-				timeSinceLastRow = time.time()
-				writeRow(velocity, basetime, testSection)
+def setDecelerationTime(decelerationTime): #VFD register S09
+    try: 
+        instr.write_register(1801, decelerationTime, functioncode=6)
+    except IOError:
+        print("Failed to set deceleration time S09")
 
 
-def holdVelocityForTime(holdTime, testSection, basetime):
-	global velocity
-	print("Holding for: " + str(holdTime) + " s")
-	velocity = getVelocity()
-	timeSinceLastRow = time.time()
-	baseTimeOfHold = time.time()
-	while(time.time() - baseTimeOfHold < holdTime):
-		if(time.time() - timeSinceLastRow > 0.2):
-			timeSinceLastRow = time.time()
-			writeRow(velocity, basetime, testSection)
+#def setAccelerationAndTargetSpeed(acceleration, targetSpeed, testSection, basetime):
+#	global velocity
+#	print("Setting Acceleration to: " + str(acceleration) + " and Target Speed to: " + str(targetSpeed))
+#	velocity = getVelocity()
+#	timeSinceLastRow = time.time()
+#
+#	#THIS CAN BE CLEANED UP ONCE REAL SPEED IS BEING READ
+#	if(acceleration > 0):
+#		while(velocity < targetSpeed):
+#			if(time.time() - timeSinceLastRow > 0.2):
+#				velocity += (acceleration/10)
+#				timeSinceLastRow = time.time()
+#				writeRow(velocity, basetime, testSection)
+#	else:
+#		while(velocity > targetSpeed):
+#			if(time.time() - timeSinceLastRow > 0.2):
+#				velocity += (acceleration/10)
+#				timeSinceLastRow = time.time()
+#				writeRow(velocity, basetime, testSection)
+#
+#
+#def holdVelocityForTime(holdTime, testSection, basetime):
+#	global velocity
+#	print("Holding for: " + str(holdTime) + " s")
+#	velocity = getVelocity()
+#	timeSinceLastRow = time.time()
+#	baseTimeOfHold = time.time()
+#	while(time.time() - baseTimeOfHold < holdTime):
+#		if(time.time() - timeSinceLastRow > 0.2):
+#			timeSinceLastRow = time.time()
+#			writeRow(velocity, basetime, testSection)
 
 	#TODO

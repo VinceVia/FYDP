@@ -19,7 +19,7 @@ counter = 0
 clkLastState = GPIO.input(B)
 dtLastState = GPIO.input(A)
 
-instr = minimalmodbus.Instrument('/dev/ttyUSB0', 1)
+#instr = minimalmodbus.Instrument('/dev/ttyUSB0', 1)
 #instr.debug = True
 #instr.serial.parity = serial.PARITY_EVEN
 
@@ -34,11 +34,16 @@ basetime = time.time()
 
 def connectVFD():
     try:
-        #instr = minimalmodbus.Instrument('/dev/ttyUSB0',1)
+        instr = minimalmodbus.Instrument('/dev/ttyUSB0',1)
         instr.debug = True #TODO:comment this out after testing is done
         instr.serial.parity = serial.PARITY_EVEN
     except IOError:
-        print("Failed to connect to VFD")
+            try:
+                instr = minimalmodbus.Instrument('/dev/ttyUSB1',1)
+                instr.debug = True
+                instr.serial.parity = serial.PARITY_EVEN
+            except IOError:
+                print("Failed to connect to VFD")
 
 def calculateSpeed(numOfPulses, sampleTime):
     N=1000

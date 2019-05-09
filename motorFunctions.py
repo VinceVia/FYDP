@@ -19,7 +19,7 @@ counter = 0
 clkLastState = GPIO.input(B)
 dtLastState = GPIO.input(A)
 
-#instr = minimalmodbus.Instrument('/dev/ttyUSB0', 1)
+instr = minimalmodbus.Instrument('/dev/ttyUSB0', 1)
 #instr.debug = True
 #instr.serial.parity = serial.PARITY_EVEN
 
@@ -34,7 +34,7 @@ basetime = time.time()
 
 def connectVFD():
     try:
-        instr = minimalmodbus.Instrument('/dev/ttyUSB0',1)
+        #instr = minimalmodbus.Instrument('/dev/ttyUSB0',1)
         instr.debug = True #TODO:comment this out after testing is done
         instr.serial.parity = serial.PARITY_EVEN
     except IOError:
@@ -78,7 +78,8 @@ def writeRow(velocity, basetime, testSection):
 
 def setSpeed(targetSpeed): #VFD register S01
 	#velocity = int(targetSpeed*(20000/60))
-    frequency = 0.056891*targetSpeed - 6.385283 #from experiment, see graph Motor_RPM_vs_VFD_Frequency_trend.ods
+    frequency = round((0.056891*targetSpeed - 6.385283)*(20000/60),2) #from experiment, see graph Motor_RPM_vs_VFD_Frequency_trend.ods
+    #TODO: maybe change 2 to 0 to get rid of decimals
     try:
         instr.write_register(1793, frequency, functioncode=6)
     except IOError:

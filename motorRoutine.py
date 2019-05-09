@@ -4,7 +4,7 @@ import settings
 import motorFunctions
 
 def MotorRoutine(StartPage):
-	basetime = time.time()
+        basetime = time.time()
         motorFunctions.connectVFD()
 
         #TODO: may need to change decelerationTime settings to accelerationTime
@@ -86,7 +86,7 @@ def MotorRoutine(StartPage):
         print("Test 3 - Anticlockwise direction")
         motorFunctions.setAccelerationTime(900) #9s
         motorFunctions.setSpeed(900) #900rpm
-        motorFunctions.startMotorForward()
+        motorFunctions.startMotorBackward()
         time.sleep(9) #accelerate for 9s
         time.sleep(30) #maintain speed for 30s TODO: add sensors, may need
         motorFunctions.setDecelerationTime(40) #0.4s 
@@ -115,7 +115,29 @@ def MotorRoutine(StartPage):
         motorFunctions.stopMotor()
         print("Test 3 finished")
 
-	#motorFunctions.setSpeed(900)
+        print("Starting Test 4: Insensitivity Test")
+        print("Test 4 - Clockwise direction")
+        motorFunctions.setAccelerationTime(900) #9s
+        motorFunctions.setSpeed(900) #900rpm
+        motorFunctions.startMotorForward()
+        time.sleep(9) #accelerate for 9s
+        time.sleep(30) #maintain speed for 30s TODO: add sensors
+        motorFunctions.setDecelerationTime(1149) #12.5s
+        motorFunctions.setSpeed(0) 
+        time.sleep(12.5) #decelerate for 12.5s
+        motorFunctions.stopMotor()
+        print("Test 4 - Anticlockwise direction")
+        motorFunctions.setAccelerationTime(900) #9s
+        motorFunctions.setSpeed(900) #900rpm
+        motorFunctions.startMotorBackward()
+        time.sleep(9) #accelerate for 9s
+        time.sleep(30) #maintain speed for 30s TODO: add sensors
+        motorFunctions.setDecelerationTime(1149) #12.5s
+        motorFunctions.setSpeed(0) 
+        time.sleep(12.5) #decelerate for 12.5s
+        motorFunctions.stopMotor()
+
+        #motorFunctions.setSpeed(900)
 	#motorFunctions.startMotorForward()
 	#startTime = time.time()
 	#while(True):
@@ -201,10 +223,10 @@ def MotorRoutine(StartPage):
 	#SET FAILURE MODE WHEN IT OCCURS IN TEST AND BREAK
 	#FOR NOW ALWAYS SUCCESS
 	
-	print("SET TO SUCCESS")
-	resultByIDDao.ResultByIDDao.setTestStatus(4) #SUCCESS
-	StartPage.status = StartPage.getStatus()
-	StartPage.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + StartPage.status)
+        print("SET TO SUCCESS")
+        resultByIDDao.ResultByIDDao.setTestStatus(4) #SUCCESS
+        StartPage.status = StartPage.getStatus()
+        StartPage.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + StartPage.status)
 
 # 1. RUN-IN, OPERATING TEMPERATURE AND VIBRATION TEST
 # 	a.	Accelerate to 900 RPM clockwise at a rate of 100 RPM/s

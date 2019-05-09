@@ -3,6 +3,7 @@ import resultByIDDao
 import settings
 import motorFunctions
 
+basetime = time.time()
 motorFunctions.connectVFD()
 
 print("Starting Test 3: Short Skid Tests")
@@ -67,4 +68,5 @@ motorFunctions.setSpeed(0) #0rpm
 time.sleep(1.5) #decelerate for 1.5s
 motorFunctions.stopMotor()
 print("Test 3 finished")
+
 

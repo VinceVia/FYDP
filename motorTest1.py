@@ -28,5 +28,3 @@ motorFunctions.setSpeed(0) #0rpm
 motorFunctions.stopMotor() #TODO: check if this uses the right deceleration rate, change to startMotorBackwards() with target speed 0 if not
 time.sleep(36) #decelerate for 36s 
 print("Test 1 finished")
-
-

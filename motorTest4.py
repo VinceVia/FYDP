@@ -3,6 +3,7 @@ import resultByIDDao
 import settings
 import motorFunctions
 
+basetime = time.time()
 motorFunctions.connectVFD()
 
 print("Starting Test 4: Insensitivity Test")

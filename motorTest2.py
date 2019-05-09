@@ -3,9 +3,9 @@ import resultByIDDao
 import settings
 import motorFunctions
 
+basetime = time.time()
 motorFunctions.connectVFD()
 
-#TODO: may need to change decelerationTime settings to accelerationTime
 print("Starting Test 2: Severe Skid Sensitivity Test")
 print("Test 2 - Clockwise direction")
 motorFunctions.setAccelerationTime(900) #9s

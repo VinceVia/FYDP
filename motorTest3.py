@@ -26,16 +26,17 @@ motorFunctions.setSpeed(460) #460rpm
 time.sleep(0.4) #decelerate for 0.4s TODO: sensors
 time.sleep(10) #maintain speed for 10s TODO: sensors
 motorFunctions.setDecelerationTime(90) #9s
-motorFunctions.setSpeed(100) #100rpm
+motorFunctions.setSpeed100() #100rpm
 time.sleep(9) #decelerate for 9s
 time.sleep(30) #maintain speed for 30s TODO: sensors
 motorFunctions.setSmallDecelerationTime(0.4) #0.4s
-motorFunctions.setSpeed(60) #60rpm
+motorFunctions.setSpeed60() #60rpm
 time.sleep(0.4) #decelerate for 0.4s TODO: sensors
 time.sleep(10) #maintain speed for 10s
 motorFunctions.setDecelerationTime(15) #1.5s
 motorFunctions.stopMotor()
 time.sleep(1.5) #decelerate for 1.5s
+time.sleep(1) #rest for a second
 print("Test 3 - Anticlockwise direction")
 motorFunctions.setAccelerationTime(90) #9s
 motorFunctions.setSpeed(900) #900rpm
@@ -55,11 +56,11 @@ motorFunctions.setSpeed(460) #460rpm
 time.sleep(0.4) #decelerate for 0.4s TODO: sensors
 time.sleep(10) #maintain speed for 10s TODO: sensors
 motorFunctions.setDecelerationTime(90) #9s
-motorFunctions.setSpeed(100) #100rpm
+motorFunctions.setSpeed100() #100rpm
 time.sleep(9) #decelerate for 9s
 time.sleep(30) #maintain speed for 30s TODO: sensors
 motorFunctions.setSmallDecelerationTime(0.4) #0.4s
-motorFunctions.setSpeed(60) #60rpm
+motorFunctions.setSpeed60() #60rpm
 time.sleep(0.4) #decelerate for 0.4s TODO: sensors
 time.sleep(10) #maintain speed for 10s
 motorFunctions.setDecelerationTime(15) #1.5s

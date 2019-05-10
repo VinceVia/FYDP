@@ -8,7 +8,7 @@ motorFunctions.connectVFD()
 
 print("Starting Test 4: Insensitivity Test")
 print("Test 4 - Clockwise direction")
-motorFunctions.setAccelerationTime(900) #9s
+motorFunctions.setAccelerationTime(90) #9s
 motorFunctions.setSpeed(900) #900rpm
 motorFunctions.startMotorForward()
 time.sleep(9) #accelerate for 9s

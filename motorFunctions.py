@@ -33,6 +33,7 @@ basetime = time.time()
 # 	return velocity
 
 def connectVFD():
+    global instr
     try:
         instr = minimalmodbus.Instrument('/dev/ttyUSB0',1)
         instr.debug = True #TODO:comment this out after testing is done
@@ -82,13 +83,28 @@ def writeRow(velocity, basetime, testSection):
 	detailedResultsDao.DetailedResultsDao.setNewRow(velocity, elapsedTime, time.time(), sensorID, pressure, testSection, overheat)
 
 def setSpeed(targetSpeed): #VFD register S01
+    global instr
 	#velocity = int(targetSpeed*(20000/60))
     frequency = round((0.056891*targetSpeed - 6.385283)*(20000/60),2) #from experiment, see graph Motor_RPM_vs_VFD_Frequency_trend.ods
-    #TODO: maybe change 2 to 0 to get rid of decimals
     try:
         instr.write_register(1793, frequency, functioncode=6)
     except IOError:
         print("Failed to set frequency S01")
+
+def setSpeed100(): #VFD register S01, set speed to 100RPM
+    global instr
+    try:
+        instr.write_register(1793, 1630, functioncode=6)
+    except IOError:
+        print("Failed to set frequency S01")
+
+def setSpeed60(): #VFD register S01, set speed to 60RPM
+    global instr
+    try:
+        instr.write_register(1793, 1000, functioncode=6)
+    except IOError:
+        print("Failed to set frequency S01")
+    
 
 def startMotorForward(): #VFD register S06
     try:
@@ -103,22 +119,33 @@ def startMotorReverse(): #VFD register S06
         print("Failed to set motor reverse S06")
 
 def stopMotor(): #VFD register S06
+    global instr
     try:
         instr.write_register(1798, 0, functioncode=6)
     except IOError:
         print("Failed to stop motor S06")
 
 def setAccelerationTime(accelerationTime): #VFD register S08
-        try:
-            instr.write_register(1800, accelerationTime, functioncode=6)
-        except IOError:
-            print("Failed to set acceleration time S08")
+    global instr
+    try:
+        instr.write_register(1800, accelerationTime, functioncode=6)
+    except IOError:
+        print("Failed to set acceleration time S08")
 
 def setDecelerationTime(decelerationTime): #VFD register S09
+    global instr
     try: 
         instr.write_register(1801, decelerationTime, functioncode=6)
     except IOError:
         print("Failed to set deceleration time S09")
+
+def setSmallDecelerationTime(decelerationTime): #VFD register S09
+    global instr
+    try: 
+        instr.write_register(1801, decelerationTime, numberOfDecimals=1, functioncode=6)
+    except IOError:
+        print("Failed to set deceleration time S09")
+
 
 
 #def setAccelerationAndTargetSpeed(acceleration, targetSpeed, testSection, basetime):

@@ -1,10 +1,12 @@
 import tkinter as tk
 from tkinter import *
+import multiprocessing
 import settings
 import graphPage
 import resultByIDDao
 import misc
-import motorRoutine 
+#import motorRoutine 
+import testMotorRoutine #FOR TEST
 import subprocess
 
 class StartPage(tk.Frame):
@@ -75,7 +77,7 @@ class StartPage(tk.Frame):
             resultByIDDao.ResultByIDDao.setTestStatus(1) #In Progress
             self.status = self.getStatus()
             self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
-            motorRoutine.fakeMotorRoutine(self)
+            #motorRoutine.fakeMotorRoutine(self) TODO: modify this after testing
         elif(machine_status == 0):
             self.win = tk.Toplevel(self)
             self.win.config(bd=5, relief='raised')
@@ -127,7 +129,10 @@ class StartPage(tk.Frame):
             resultByIDDao.ResultByIDDao.setTestStatus(1) #In Progress
             self.status = self.getStatus()
             self.progress_label.configure(text=settings.languageList[1][settings.language] + ' ' + self.status)
-            motorRoutine.fakeMotorRoutine(self)
+            #TODO: change motorProcess target to motorRoutine.py
+            motorProcess = multiprocessing.Process(name='motorProcessTest', target=testMotorRoutine.processTest,)
+            motorProcess.start()
+            #motorRoutine.fakeMotorRoutine(self)
     
     def stop(self):
         machine_status = resultByIDDao.ResultByIDDao.get_test_status(settings.test_number)[0]

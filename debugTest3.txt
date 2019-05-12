@@ -1,0 +1,74 @@
+Starting Test 3: Short Skid Tests
+Test 3 - Clockwise direction
+
+MinimalModbus debug mode. Writing to instrument (expecting 8 bytes back): '\x01\x06\x07\x08\x00Z\x89G' (01 06 07 08 00 5A 89 47)
+MinimalModbus debug mode. No sleep required before write. Time since previous read: 1557456121255.7 ms, minimum silent period: 2.01 ms.
+MinimalModbus debug mode. Response from instrument: '\x01\x06\x07\x08\x00Z\x89G' (01 06 07 08 00 5A 89 47) (8 bytes), roundtrip time: 27.7 ms. Timeout setting: 50.0 ms.
+
+
+MinimalModbus debug mode. Writing to instrument (expecting 8 bytes back): '\x01\x06\x07\x01:ZKå' (01 06 07 01 3A 5A 4B E5)
+MinimalModbus debug mode. No sleep required before write. Time since previous read: 2.0 ms, minimum silent period: 2.01 ms.
+MinimalModbus debug mode. Response from instrument: '\x01\x06\x07\x01:ZKå' (01 06 07 01 3A 5A 4B E5) (8 bytes), roundtrip time: 30.7 ms. Timeout setting: 50.0 ms.
+
+
+MinimalModbus debug mode. Writing to instrument (expecting 8 bytes back): '\x01\x06\x07\x06\x00\x01©\x7f' (01 06 07 06 00 01 A9 7F)
+MinimalModbus debug mode. Sleeping for 0.1 ms. Minimum silent period: 2.0 ms, time since read: 1.9 ms.
+MinimalModbus debug mode. Response from instrument: '\x01\x06\x07\x06\x00\x01©\x7f' (01 06 07 06 00 01 A9 7F) (8 bytes), roundtrip time: 29.4 ms. Timeout setting: 50.0 ms.
+
+
+MinimalModbus debug mode. Writing to instrument (expecting 8 bytes back): '\x01\x06\x07\t\x00\x04Y\x7f' (01 06 07 09 00 04 59 7F)
+MinimalModbus debug mode. No sleep required before write. Time since previous read: 39042.9 ms, minimum silent period: 2.01 ms.
+MinimalModbus debug mode. Response from instrument: '\x01\x06\x07\t\x00\x04Y\x7f' (01 06 07 09 00 04 59 7F) (8 bytes), roundtrip time: 31.6 ms. Timeout setting: 50.0 ms.
+
+
+MinimalModbus debug mode. Writing to instrument (expecting 8 bytes back): '\x01\x06\x07\x017dÎ¥' (01 06 07 01 37 64 CE A5)
+MinimalModbus debug mode. No sleep required before write. Time since previous read: 4.6 ms, minimum silent period: 2.01 ms.
+MinimalModbus debug mode. Response from instrument: '\x01\x06\x07\x017dÎ¥' (01 06 07 01 37 64 CE A5) (8 bytes), roundtrip time: 26.7 ms. Timeout setting: 50.0 ms.
+
+
+MinimalModbus debug mode. Writing to instrument (expecting 8 bytes back): '\x01\x06\x07\t\x00ZØ\x87' (01 06 07 09 00 5A D8 87)
+MinimalModbus debug mode. No sleep required before write. Time since previous read: 10415.3 ms, minimum silent period: 2.01 ms.
+MinimalModbus debug mode. Response from instrument: '\x01\x06\x07\t\x00ZØ\x87' (01 06 07 09 00 5A D8 87) (8 bytes), roundtrip time: 33.9 ms. Timeout setting: 50.0 ms.
+
+
+MinimalModbus debug mode. Writing to instrument (expecting 8 bytes back): '\x01\x06\x07\x01\x1c¹\x10\x0c' (01 06 07 01 1C B9 10 0C)
+MinimalModbus debug mode. No sleep required before write. Time since previous read: 4.5 ms, minimum silent period: 2.01 ms.
+MinimalModbus debug mode. Response from instrument: '\x01\x06\x07\x01\x1c¹\x10\x0c' (01 06 07 01 1C B9 10 0C) (8 bytes), roundtrip time: 26.8 ms. Timeout setting: 50.0 ms.
+
+
+MinimalModbus debug mode. Writing to instrument (expecting 8 bytes back): '\x01\x06\x07\t\x00\x04Y\x7f' (01 06 07 09 00 04 59 7F)
+MinimalModbus debug mode. No sleep required before write. Time since previous read: 39043.9 ms, minimum silent period: 2.01 ms.
+MinimalModbus debug mode. Response from instrument: '\x01\x06\x07\t\x00\x04Y\x7f' (01 06 07 09 00 04 59 7F) (8 bytes), roundtrip time: 34.2 ms. Timeout setting: 50.0 ms.
+
+
+MinimalModbus debug mode. Writing to instrument (expecting 8 bytes back): '\x01\x06\x07\x01\x19ÂS\x7f' (01 06 07 01 19 C2 53 7F)
+MinimalModbus debug mode. No sleep required before write. Time since previous read: 4.5 ms, minimum silent period: 2.01 ms.
+MinimalModbus debug mode. Response from instrument: '\x01\x06\x07\x01\x19ÂS\x7f' (01 06 07 01 19 C2 53 7F) (8 bytes), roundtrip time: 26.8 ms. Timeout setting: 50.0 ms.
+
+
+MinimalModbus debug mode. Writing to instrument (expecting 8 bytes back): '\x01\x06\x07\t\x00ZØ\x87' (01 06 07 09 00 5A D8 87)
+MinimalModbus debug mode. No sleep required before write. Time since previous read: 10415.3 ms, minimum silent period: 2.01 ms.
+MinimalModbus debug mode. Response from instrument: '\x01\x06\x07\t\x00ZØ\x87' (01 06 07 09 00 5A D8 87) (8 bytes), roundtrip time: 32.6 ms. Timeout setting: 50.0 ms.
+
+Traceback (most recent call last):
+  File "/home/pi/.local/lib/python3.5/site-packages/minimalmodbus.py", line 1619, in _pack
+    result = struct.pack(formatstring, value)
+struct.error: argument out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "motorTest3.py", line 30, in <module>
+    motorFunctions.setSpeed(100) #100rpm
+  File "/home/pi/FYDP/motorFunctions.py", line 91, in setSpeed
+    instr.write_register(1793, frequency, functioncode=6)
+  File "/home/pi/.local/lib/python3.5/site-packages/minimalmodbus.py", line 296, in write_register
+    self._genericCommand(functioncode, registeraddress, value, numberOfDecimals, signed=signed)
+  File "/home/pi/.local/lib/python3.5/site-packages/minimalmodbus.py", line 666, in _genericCommand
+    _numToTwoByteString(value, numberOfDecimals, signed=signed)
+  File "/home/pi/.local/lib/python3.5/site-packages/minimalmodbus.py", line 1275, in _numToTwoByteString
+    outstring = _pack(formatcode, integer)
+  File "/home/pi/.local/lib/python3.5/site-packages/minimalmodbus.py", line 1623, in _pack
+    raise ValueError(errortext.format(value, formatstring))
+ValueError: The value to send is probably out of range, as the num-to-bytestring conversion failed. Value: -232 Struct format code is: >H
+

@@ -2,6 +2,7 @@ import time
 import resultByIDDao
 import settings
 import motorFunctions
+import multiprocessing
 
 def MotorRoutine(StartPage):
     basetime = time.time()

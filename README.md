@@ -1,4 +1,4 @@
-# FYDP
+# MWX Testbench Code (FYDP)
 This repo contains software for the MWX Testbench. It is written in Python 3 and meant to run on Raspbian (tested with Raspberry Pi 3B+). Written by Arjun von Hatten and Sophie Walford, 2019.
 ------------------------------------------------------------------------------------------------------------------------------
 Run the following commands to install dependencies:  

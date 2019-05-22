@@ -1,18 +1,18 @@
 # FYDP
 This repo contains software for the MWX Testbench. It is written in Python 3 and meant to run on Raspbian (tested with Raspberry Pi 3B+). Written by Arjun von Hatten and Sophie Walford, 2019.
 ------------------------------------------------------------------------------------------------------------------------------
-Run the following commands to install dependencies:
-sudo apt install python3-tk
-sudo apt install python3-pip
-pip3 install wheel
-pip3 install pandas
-pip3 install matplotlib
-pip3 install serial
-pip3 install minimalmodbus
+Run the following commands to install dependencies:  
+sudo apt install python3-tk  
+sudo apt install python3-pip  
+pip3 install wheel  
+pip3 install pandas  
+pip3 install matplotlib  
+pip3 install serial  
+pip3 install minimalmodbus  
 
 ------------------------------------------------------------------------------------------------------------------------------
 
-To start the software, run: ./UI.py
+To start the software, run: ./UI.py  
 
 ------------------------------------------------------------------------------------------------------------------------------
 
@@ -44,14 +44,14 @@ misc.py: Other common functions used by multiple classes.
 
 The database is written in sqlite and contains the following tables.
 
-detailedResults: Contains detailed test results for each test.
-                 -one column per sensor
-                 -one row per sample time
+detailedResults: Contains detailed test results for each test.  
+                 -one column per sensor  
+                 -one row per sample time  
                  
-resultById: Aggregate of historical test results for a given MWX sensor (sorted by serial number).
-                 -get/set failure mode
-                 -one row per test
-                 -id matches to testId in detailedResults table
-                 -test_status: part of a state machine which indicates current status of test
-                 -failure_mode: fail case
+resultById: Aggregate of historical test results for a given MWX sensor (sorted by serial number).  
+                 -get/set failure mode  
+                 -one row per test  
+                 -id matches to testId in detailedResults table  
+                 -test_status: part of a state machine which indicates current status of test  
+                 -failure_mode: fail case  
 
